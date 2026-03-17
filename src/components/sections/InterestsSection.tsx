@@ -14,6 +14,9 @@ export function InterestsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [columnOffsets, setColumnOffsets] = useState([0, 0, 0]);
   const [isMobile, setIsMobile] = useState(false);
+  const rafIdRef = useRef<number | null>(null);
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<number | null>(null);
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -26,8 +29,11 @@ export function InterestsSection() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (prefersReducedMotion || isMobile) return;
 
-    const handleScroll = () => {
-      if (!sectionRef.current) return;
+    const updateParallax = () => {
+      if (!sectionRef.current || !isScrollingRef.current) {
+        rafIdRef.current = null;
+        return;
+      }
 
       const rect = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
@@ -41,11 +47,43 @@ export function InterestsSection() {
       const offset3 = progress * 40;
 
       setColumnOffsets([offset1, offset2, offset3]);
+
+      // Continue RAF loop while scrolling
+      rafIdRef.current = requestAnimationFrame(updateParallax);
+    };
+
+    const handleScroll = () => {
+      // Mark as scrolling
+      isScrollingRef.current = true;
+
+      // Clear existing timeout
+      if (scrollTimeoutRef.current !== null) {
+        window.clearTimeout(scrollTimeoutRef.current);
+      }
+
+      // Start RAF loop only if not already running
+      if (rafIdRef.current === null) {
+        rafIdRef.current = requestAnimationFrame(updateParallax);
+      }
+
+      // Stop RAF loop 150ms after last scroll event
+      scrollTimeoutRef.current = window.setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 150);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
+      if (scrollTimeoutRef.current !== null) {
+        window.clearTimeout(scrollTimeoutRef.current);
+      }
+    };
   }, [isMobile]);
 
   return (
@@ -81,8 +119,8 @@ export function InterestsSection() {
                 key={interest.label}
                 className="flip-card h-56"
                 style={{
-                  transform: isMobile ? "none" : `translateY(${columnOffsets[index]}px)`,
-                  transition: "transform 0.1s linear",
+                  transform: isMobile ? "translateZ(0)" : `translateY(${columnOffsets[index]}px) translateZ(0)`,
+                  willChange: isMobile ? "auto" : "transform",
                 }}
               >
                 <div className="flip-card-inner h-full w-full">

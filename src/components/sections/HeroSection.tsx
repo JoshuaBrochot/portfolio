@@ -212,7 +212,7 @@ export function HeroSection() {
             />
             {/* Avatar circle */}
             <div
-              className="flex h-[280px] w-[280px] items-center justify-center rounded-full"
+              className="flex h-[360px] w-[360px] items-center justify-center rounded-full"
               style={{
                 backgroundColor: "var(--bg-card)",
                 border: "2px solid var(--accent-border)",

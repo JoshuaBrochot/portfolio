@@ -9,8 +9,14 @@ interface SmoothScrollProviderProps {
 
 export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   const lenisRef = useRef<Lenis | null>(null);
+  const rafIdRef = useRef<number | null>(null);
+  const isInitializedRef = useRef(false);
 
   useEffect(() => {
+    // Prevent double initialization in StrictMode
+    if (isInitializedRef.current) return;
+    isInitializedRef.current = true;
+
     // Check for reduced motion preference
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
@@ -33,16 +39,21 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     lenisRef.current = lenis;
     (window as unknown as { lenis: Lenis | null }).lenis = lenis;
 
+    // Separate RAF for Lenis only - no other calculations here
     function raf(time: number) {
       lenis.raf(time);
-      requestAnimationFrame(raf);
+      rafIdRef.current = requestAnimationFrame(raf);
     }
 
-    requestAnimationFrame(raf);
+    rafIdRef.current = requestAnimationFrame(raf);
 
     return () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+      }
       lenis.destroy();
       (window as unknown as { lenis: Lenis | null }).lenis = null;
+      isInitializedRef.current = false;
     };
   }, []);
 

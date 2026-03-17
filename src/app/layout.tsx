@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Syne, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/ui/SmoothScrollProvider";
-import { CustomCursor } from "@/components/ui/CustomCursor";
 import { Navbar } from "@/components/layout/Navbar";
 
 const syne = Syne({
@@ -50,7 +49,6 @@ export default function RootLayout({
     <html lang="fr">
       <body className={`${syne.variable} ${ibmPlexMono.variable} antialiased`}>
         <SmoothScrollProvider>
-          <CustomCursor />
           <Navbar />
           {children}
         </SmoothScrollProvider>

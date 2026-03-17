@@ -9,7 +9,7 @@ export const PROFILE = {
   available: true,
   availableLabel: "disponible · stage fév–juin 2026",
   initials: "JB",
-  avatarSrc: null as string | null,
+  avatarSrc: '/photo.jpg',
   socials: [
     { label: "GitHub", href: "https://github.com/JoshuaBrochot" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/joshua-brochot" },

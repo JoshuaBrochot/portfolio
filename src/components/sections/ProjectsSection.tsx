@@ -1,15 +1,15 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { PROJECTS } from "@/data/portfolio";
 import { ProjectModal } from "@/components/ui/ProjectModal";
+import { useScrollRAF } from "@/hooks/useScrollRAF";
 
 type Project = (typeof PROJECTS)[number];
 
 export function ProjectsSection() {
   const containerRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
   const [activeIndex, setActiveIndex] = useState(0);
   const [isMobile, setIsMobile] = useState(true); // Default to mobile for SSR
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -25,36 +25,21 @@ export function ProjectsSection() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Handle active index update based on progress
+  const handleProgressUpdate = useCallback((currentProgress: number) => {
+    const newActiveIndex = Math.min(
+      PROJECTS.length - 1,
+      Math.floor(currentProgress * PROJECTS.length)
+    );
+    setActiveIndex(newActiveIndex);
+  }, []);
 
-    if (prefersReducedMotion || isMobile) return;
-
-    const handleScroll = () => {
-      if (!containerRef.current || !stripRef.current) return;
-
-      const containerRect = containerRef.current.getBoundingClientRect();
-      const containerHeight = containerRect.height;
-      const windowHeight = window.innerHeight;
-      const scrollableDistance = containerHeight - windowHeight;
-
-      if (scrollableDistance <= 0) return;
-
-      const currentProgress = Math.min(1, Math.max(0, -containerRect.top / scrollableDistance));
-      setProgress(currentProgress);
-
-      // Calculate active card index
-      const newActiveIndex = Math.min(
-        PROJECTS.length - 1,
-        Math.floor(currentProgress * PROJECTS.length)
-      );
-      setActiveIndex(newActiveIndex);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isMobile]);
+  // Use RAF hook for optimized scroll calculations
+  const progress = useScrollRAF({
+    enabled: !isMobile,
+    containerRef,
+    onUpdate: handleProgressUpdate,
+  });
 
   // Mobile view - vertical stack
   if (isMobile) {
@@ -182,7 +167,10 @@ export function ProjectsSection() {
       style={{ backgroundColor: "var(--bg-base)" }}
     >
       <div ref={containerRef} style={{ height: "400vh" }}>
-        <div className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden">
+        <div
+          className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden"
+          style={{ transform: "translateZ(0)", willChange: "transform" }}
+        >
           {/* Header */}
           <div className="mx-auto w-full max-w-7xl px-6 pb-8">
             <span
@@ -204,8 +192,8 @@ export function ProjectsSection() {
             ref={stripRef}
             className="flex justify-center gap-6 px-6"
             style={{
-              transform: `translateX(-${progress * maxTranslate}px)`,
-              transition: "transform 0.1s linear",
+              transform: `translateX(-${progress * maxTranslate}px) translateZ(0)`,
+              willChange: "transform",
             }}
           >
             {PROJECTS.map((project, index) => {
@@ -220,7 +208,8 @@ export function ProjectsSection() {
                   style={{
                     width: `clamp(280px, 40vw, 380px)`,
                     opacity: isActive ? 1 : 0.5,
-                    transform: `scale(${isActive ? 1 : 0.97})`,
+                    transform: `scale(${isActive ? 1 : 0.97}) translateZ(0)`,
+                    willChange: "opacity, transform",
                   }}
                   data-cursor
                   data-cursor-label="View →"
@@ -236,7 +225,8 @@ export function ProjectsSection() {
                     <div
                       className="absolute inset-0 flex items-center justify-center"
                       style={{
-                        transform: `translateX(${-imageParallaxOffset * 0.3}px)`,
+                        transform: `translateX(${-imageParallaxOffset * 0.3}px) translateZ(0)`,
+                        willChange: "transform",
                       }}
                     >
                       {/* Project number as visual element */}

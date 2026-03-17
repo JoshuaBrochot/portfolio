@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useCallback } from "react";
 import { MapPin } from "lucide-react";
 import { EXPERIENCES } from "@/data/portfolio";
+import { useScrollRAF } from "@/hooks/useScrollRAF";
 
 export function ExperienceSection() {
   const containerRef = useRef<HTMLDivElement>(null);
-  const [progress, setProgress] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const [visibleItems, setVisibleItems] = useState<boolean[]>(EXPERIENCES.map(() => false));
 
@@ -17,46 +17,24 @@ export function ExperienceSection() {
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  useEffect(() => {
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    if (prefersReducedMotion) {
-      setProgress(1);
-      setVisibleItems(EXPERIENCES.map(() => true));
-      return;
-    }
-
-    const handleScroll = () => {
-      if (!containerRef.current) return;
-
-      const rect = containerRef.current.getBoundingClientRect();
-      const containerHeight = rect.height;
-      const windowHeight = window.innerHeight;
-      const scrollableDistance = containerHeight - windowHeight;
-
-      if (scrollableDistance <= 0) {
-        setProgress(rect.top <= 0 ? 1 : 0);
-        return;
-      }
-
-      const currentProgress = Math.min(1, Math.max(0, -rect.top / scrollableDistance));
-      setProgress(currentProgress);
-
-      // Reveal items based on progress (first at 0, last at 0.8)
-      const newVisible = EXPERIENCES.map((_, index) => {
-        const itemCount = EXPERIENCES.length;
-        const threshold = itemCount === 1
-          ? 0
-          : 0 + (index / (itemCount - 1)) * 0.8;
-        return currentProgress >= threshold;
-      });
-      setVisibleItems(newVisible);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
+  // Handle visibility based on progress
+  const handleProgressUpdate = useCallback((currentProgress: number) => {
+    const newVisible = EXPERIENCES.map((_, index) => {
+      const itemCount = EXPERIENCES.length;
+      const threshold = itemCount === 1
+        ? 0.1
+        : 0.1 + (index / (itemCount - 1)) * 0.3;
+      return currentProgress >= threshold;
+    });
+    setVisibleItems(newVisible);
   }, []);
+
+  // Use RAF hook for optimized scroll calculations
+  const progress = useScrollRAF({
+    enabled: !isMobile,
+    containerRef,
+    onUpdate: handleProgressUpdate,
+  });
 
   // Mobile view
   if (isMobile) {
@@ -205,7 +183,10 @@ export function ExperienceSection() {
       style={{ backgroundColor: "var(--bg-base)" }}
     >
       <div ref={containerRef} style={{ height: "400vh" }}>
-        <div className="sticky top-0 flex h-screen items-center">
+        <div
+          className="sticky top-0 flex h-screen items-center"
+          style={{ transform: "translateZ(0)", willChange: "transform" }}
+        >
           <div className="mx-auto flex w-full max-w-7xl gap-12 px-6">
             {/* Left panel */}
             <div className="w-[30%]">
@@ -221,26 +202,6 @@ export function ExperienceSection() {
               >
                 Expériences
               </h2>
-
-              {/* Progress bar */}
-              <div
-                className="mt-8 h-1 w-full overflow-hidden rounded-full"
-                style={{ backgroundColor: "var(--bg-elevated)" }}
-              >
-                <div
-                  className="h-full rounded-full transition-all duration-100"
-                  style={{
-                    backgroundColor: "var(--accent)",
-                    width: `${progress * 100}%`,
-                  }}
-                />
-              </div>
-              <p
-                className="mt-2 font-mono text-xs"
-                style={{ color: "var(--text-subtle)" }}
-              >
-                {Math.round(progress * 100)}% scrolled
-              </p>
             </div>
 
             {/* Right panel - timeline */}
@@ -267,7 +228,7 @@ export function ExperienceSection() {
                   strokeWidth="2"
                   strokeDasharray="1000"
                   strokeDashoffset={1000 - progress * 1000}
-                  style={{ transition: "stroke-dashoffset 0.1s linear" }}
+                  style={{ willChange: "stroke-dashoffset" }}
                 />
               </svg>
 
@@ -288,6 +249,7 @@ export function ExperienceSection() {
                         border: `2px solid ${exp.current || visibleItems[index] ? "var(--accent)" : "var(--border)"}`,
                         boxShadow: exp.current ? "0 0 12px var(--accent-glow)" : "none",
                         opacity: visibleItems[index] ? 1 : 0.3,
+                        willChange: "opacity, background-color, border-color",
                       }}
                     />
 
@@ -298,6 +260,7 @@ export function ExperienceSection() {
                         backgroundColor: "var(--bg-card)",
                         border: `1px solid ${exp.current ? "var(--accent-border)" : "var(--border)"}`,
                         opacity: visibleItems[index] ? 1 : 0.3,
+                        willChange: "opacity",
                       }}
                     >
                       {/* Period and status */}
