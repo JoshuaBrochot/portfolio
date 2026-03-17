@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Dribbble, Gamepad2, Cpu } from "lucide-react";
+import { Dribbble, Gamepad2, Cpu, type LucideIcon } from "lucide-react";
 import { INTERESTS } from "@/data/portfolio";
 
-const ICON_MAP: Record<string, React.ComponentType<{ size?: number; className?: string }>> = {
+const ICON_MAP: Record<string, LucideIcon> = {
   dribbble: Dribbble,
   "gamepad-2": Gamepad2,
   cpu: Cpu,
@@ -97,7 +97,7 @@ export function InterestsSection() {
                     {Icon && (
                       <Icon
                         size={32}
-                        style={{ color: "var(--accent)" }}
+                        color="var(--accent)"
                         className="mb-4"
                       />
                     )}
