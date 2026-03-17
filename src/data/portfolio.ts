@@ -2,7 +2,7 @@ export const PROFILE = {
   firstName: "Joshua",
   lastName: "BROCHOT",
   title: ["Étudiant BUT Informatique", "Développeur Web", "En recherche de stage"],
-  bio: "Étudiant en BUT Informatique à l'IUT de Metz, je cherche un stage du 23 février au 12 juin 2026 pour développer mes compétences en programmation et contribuer à des projets concrets.",
+  bio: "Salut ! Je suis étudiant en informatique, passionné par les nouvelles technologies et le développement logiciel. J'aime concevoir des projets bien structurés et créatifs, notamment des logiciels, des jeux et des sites web. Logique et curieux, j'adore acquérir de nouvelles compétences et explorer des idées novatrices.",
   email: "joshua.brochot@gmail.com",
   phone: "+33 07 68 84 93 38",
   birthdate: "2 septembre 2005",
@@ -11,13 +11,13 @@ export const PROFILE = {
   initials: "JB",
   avatarSrc: null as string | null,
   socials: [
-    { label: "GitHub", href: "https://github.com/" },
-    { label: "LinkedIn", href: "https://linkedin.com/" },
+    { label: "GitHub", href: "https://github.com/JoshuaBrochot" },
+    { label: "LinkedIn", href: "https://www.linkedin.com/in/joshua-brochot" },
     { label: "Email", href: "mailto:joshua.brochot@gmail.com" },
   ],
   stats: [
-    { value: "BUT3", label: "niveau" },
-    { value: "3", label: "projets" },
+    { value: "BAC +3", label: "niveau" },
+    { value: "3+", label: "projets" },
     { value: "2", label: "stages" },
   ],
 };
@@ -26,7 +26,7 @@ export const INTERESTS = [
   {
     label: "Basketball",
     icon: "dribbble" as const,
-    desc: "Sport collectif pratiqué depuis 8 ans, développe l'esprit d'équipe et la rigueur.",
+    desc: "Sport collectif pratiqué, développe l'esprit d'équipe et la rigueur.",
   },
   {
     label: "Jeux vidéo",
@@ -42,41 +42,29 @@ export const INTERESTS = [
 
 export const EDUCATION = [
   {
-    period: "2023 – 2026 (en cours)",
-    school: "IUT de Metz — Université de Lorraine",
-    degree: "BUT 3 Informatique",
-    detail: "Parcours développement logiciel",
-    current: true,
-  },
-  {
     period: "2020 – 2023",
     school: "Lycée Saint-Exupéry",
     degree: "BAC général — mention bien",
     detail: "Spécialités Mathématiques & NSI",
+    current: true,
+  },
+  {
+    period: "2023 – 2026 (en cours)",
+    school: "IUT de Metz — Université de Lorraine",
+    degree: "BUT 3 Informatique",
+    detail: "Parcours développement logiciel",
     current: false,
   },
+
 ];
 
 export const EXPERIENCES = [
-  {
-    period: "Février 2026 – Juin 2026 (en cours)",
-    company: "Paul Wurth",
-    location: "Luxembourg",
-    role: "Stage IT — Développement logiciel",
-    current: true,
-    missions: [
-      "Refonte complète d'un logiciel de gestion de contrats et d'administration",
-      "Conception et développement de l'interface utilisateur",
-      "Participation aux choix d'architecture et de stack technique",
-    ],
-    tags: ["Développement web", "Gestion de projet", "UI/UX"],
-  },
   {
     period: "Avril – Mai 2025",
     company: "TMT",
     location: "Luxembourg",
     role: "Stage R&D",
-    current: false,
+    current: true,
     missions: [
       "Développement d'un système de détection pour maintenance prédictive",
       "Traitement et analyse d'images thermiques",
@@ -84,6 +72,20 @@ export const EXPERIENCES = [
     ],
     tags: ["Python", "Computer Vision", "Traitement d'image"],
   },
+  {
+    period: "Février 2026 – Juin 2026 (en cours)",
+    company: "Paul Wurth",
+    location: "Luxembourg",
+    role: "Stage IT — Développement logiciel",
+    current: false,
+    missions: [
+      "Refonte complète d'un logiciel de gestion de contrats et d'administration",
+      "Conception et développement de l'interface utilisateur",
+      "Participation aux choix d'architecture et de stack technique",
+    ],
+    tags: ["Développement web", "Gestion de projet", "UI/UX"],
+  },
+
 ];
 
 export const PROJECTS = [
@@ -91,7 +93,7 @@ export const PROJECTS = [
     id: "neuroom",
     number: "01",
     name: "NeuRoom",
-    period: "2024 – 2025 (SAÉ 5 IUT)",
+    period: "2025 – 2026",
     desc: "Application mobile de reconnaissance visuelle des salles de l'IUT de Metz par intelligence artificielle. Architecture hexagonale complète, pipeline ML, panel d'administration et CI/CD.",
     missions: [
       "Application mobile React Native + Expo (iOS & Android)",
@@ -152,26 +154,42 @@ export interface Skill {
 
 export const SKILLS: Record<string, Skill[]> = {
   Frontend: [
-    { name: "HTML / CSS", level: "expert" },
+    { name: "HTML", level: "expert" },
+    { name: "CSS", level: "expert" },
+    { name: "JavaScript", level: "intermédiaire" },
     { name: "TypeScript", level: "intermédiaire" },
-    { name: "React Native", level: "intermédiaire" },
-    { name: "Conception web", level: "expert" },
+    { name: "React", level: "intermédiaire" },
+    { name: "Next.js", level: "intermédiaire" },
+    { name: "Tailwind", level: "intermédiaire" },
+    { name: "Bootstrap", level: "intermédiaire" },
   ],
   Backend: [
-    { name: "PHP", level: "intermédiaire" },
+    { name: "PHP", level: "expert" },
+    { name: "Symfony", level: "intermédiaire" },
     { name: "Java", level: "intermédiaire" },
-    { name: "Python", level: "intermédiaire" },
+    { name: "Python", level: "expert" },
     { name: "FastAPI", level: "intermédiaire" },
-    { name: "SQL / PostgreSQL", level: "intermédiaire" },
+    { name: "SQL", level: "expert" },
+    { name: "PostgreSQL", level: "intermédiaire" },
+    { name: "MongoDB", level: "débutant" },
   ],
   "DevOps & Outils": [
+    { name: "Git", level: "expert" },
+    { name: "GitLab", level: "intermédiaire" },
     { name: "Docker", level: "intermédiaire" },
-    { name: "GitHub Actions", level: "intermédiaire" },
-    { name: "Git", level: "intermédiaire" },
+    { name: "Linux", level: "intermédiaire" },
+    { name: "Windows", level: "intermédiaire" },
+    { name: "VS Code", level: "expert" },
+    { name: "IntelliJ", level: "intermédiaire" },
+    { name: "Figma", level: "expert" },
   ],
   "Mobile & autre": [
     { name: "Flutter", level: "débutant" },
+    { name: "React Native", level: "intermédiaire" },
     { name: "PyTorch", level: "débutant" },
+    { name: "Power Platform", level: "débutant" },
+    { name: "IA", level: "débutant" },
+    { name: "Overleaf", level: "expert" },
     { name: "Pack Office", level: "expert" },
   ],
 };

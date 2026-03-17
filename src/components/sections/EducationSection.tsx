@@ -41,10 +41,13 @@ export function EducationSection() {
       const currentProgress = Math.min(1, Math.max(0, -rect.top / scrollableDistance));
       setProgress(currentProgress);
 
-      // Reveal items based on progress
+      // Reveal items based on progress (first at 0, last at 0.8)
       const newVisible = EDUCATION.map((_, index) => {
-        const itemProgress = (index + 1) / EDUCATION.length;
-        return currentProgress >= itemProgress * 0.5;
+        const itemCount = EDUCATION.length;
+        const threshold = itemCount === 1
+          ? 0
+          : 0 + (index / (itemCount - 1)) * 0.8;
+        return currentProgress >= threshold;
       });
       setVisibleItems(newVisible);
     };
@@ -142,7 +145,7 @@ export function EducationSection() {
   return (
     <section
       id="formation"
-      className="grid-background relative"
+      className="grid-background-fixed relative"
       style={{ backgroundColor: "var(--bg-base)" }}
     >
       <div ref={containerRef} style={{ height: "300vh" }}>
@@ -223,7 +226,7 @@ export function EducationSection() {
                   >
                     {/* Node */}
                     <div
-                      className="absolute -left-[52px] top-4 h-4 w-4 rounded-full transition-all duration-300"
+                      className="absolute -left-12 top-4 h-4 w-4 -translate-x-1/2 rounded-full transition-all duration-300"
                       style={{
                         backgroundColor: item.current || visibleItems[index] ? "var(--accent)" : "var(--bg-elevated)",
                         border: `2px solid ${item.current || visibleItems[index] ? "var(--accent)" : "var(--border)"}`,

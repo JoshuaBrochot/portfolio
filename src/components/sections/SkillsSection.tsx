@@ -69,7 +69,7 @@ export function SkillsSection() {
   return (
     <section
       id="competences"
-      className="grid-background relative py-24"
+      className="grid-background-fixed relative py-24"
       style={{ backgroundColor: "var(--bg-base)" }}
     >
       <div className="mx-auto max-w-7xl px-6">
@@ -115,7 +115,7 @@ export function SkillsSection() {
         </div>
 
         {/* Skills cloud */}
-        <div className="flex min-h-[300px] flex-wrap items-center justify-center gap-3 md:gap-4">
+        <div className="mx-auto flex min-h-[300px] max-w-4xl flex-wrap items-center justify-center gap-3 md:gap-4">
           <AnimatePresence mode="popLayout">
             {filteredSkills.map((skill) => {
               const styles = getSkillStyles(skill.level);

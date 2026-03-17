@@ -212,7 +212,7 @@ export function HeroSection() {
             />
             {/* Avatar circle */}
             <div
-              className="flex h-44 w-44 items-center justify-center rounded-full"
+              className="flex h-[280px] w-[280px] items-center justify-center rounded-full"
               style={{
                 backgroundColor: "var(--bg-card)",
                 border: "2px solid var(--accent-border)",
@@ -226,7 +226,7 @@ export function HeroSection() {
                 />
               ) : (
                 <span
-                  className="font-display text-5xl font-bold"
+                  className="font-display text-6xl font-bold"
                   style={{ color: "var(--accent)" }}
                 >
                   {PROFILE.initials}

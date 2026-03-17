@@ -178,7 +178,7 @@ export function ProjectsSection() {
   return (
     <section
       id="projets"
-      className="grid-background relative"
+      className="grid-background-fixed relative"
       style={{ backgroundColor: "var(--bg-base)" }}
     >
       <div ref={containerRef} style={{ height: "400vh" }}>
@@ -199,10 +199,10 @@ export function ProjectsSection() {
             </h2>
           </div>
 
-          {/* Film strip */}
+          {/* Film strip - centered */}
           <div
             ref={stripRef}
-            className="flex gap-6 px-6"
+            className="flex justify-center gap-6 px-6"
             style={{
               transform: `translateX(-${progress * maxTranslate}px)`,
               transition: "transform 0.1s linear",

@@ -37,8 +37,8 @@ export function InterestsSection() {
 
       // Different parallax speeds for each column
       const offset1 = progress * 0;
-      const offset2 = progress * -40;
-      const offset3 = progress * 20;
+      const offset2 = progress * -60;
+      const offset3 = progress * 40;
 
       setColumnOffsets([offset1, offset2, offset3]);
     };
