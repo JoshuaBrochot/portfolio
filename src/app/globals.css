@@ -1,3 +1,296 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+/* ===== Design System - Portfolio Joshua BROCHOT ===== */
+
+:root {
+  /* Accent colors */
+  --accent: #7990FF;
+  --accent-dim: #5B6EE8;
+  --accent-ghost: rgba(121, 144, 255, 0.10);
+  --accent-border: rgba(121, 144, 255, 0.38);
+  --accent-glow: rgba(121, 144, 255, 0.20);
+
+  /* Background colors */
+  --bg-base: #0A0A0A;
+  --bg-surface: #111111;
+  --bg-card: #1A1A1A;
+  --bg-elevated: #242424;
+
+  /* Text colors */
+  --text-primary: #F0F0F0;
+  --text-muted: #A0A0A0;
+  --text-subtle: #555555;
+
+  /* Border colors */
+  --border: rgba(255, 255, 255, 0.07);
+  --border-hover: rgba(255, 255, 255, 0.14);
+
+  /* Grid */
+  --grid-line: rgba(121, 144, 255, 0.035);
+
+  /* Fonts */
+  --font-display: var(--font-syne);
+  --font-mono: var(--font-ibm-plex-mono);
+}
+
+/* ===== Base styles ===== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* Hide cursor on desktop */
+@media (pointer: fine) {
+  body {
+    cursor: none;
+  }
+
+  a, button, [data-cursor] {
+    cursor: none;
+  }
+}
+
+/* ===== Grid background ===== */
+
+.grid-background {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* ===== Typography ===== */
+
+.font-display {
+  font-family: var(--font-display), system-ui, sans-serif;
+}
+
+.font-mono {
+  font-family: var(--font-mono), ui-monospace, monospace;
+}
+
+/* ===== Buttons ===== */
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: var(--accent);
+  color: var(--bg-base);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-dim);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: transparent;
+  color: var(--accent);
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid var(--accent-border);
+  border-radius: 4px;
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-outline:hover {
+  background-color: var(--accent-ghost);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* ===== Scroll reveal animation ===== */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== Scroll indicator animation ===== */
+
+@keyframes scrolldown {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+}
+
+.scroll-indicator-line {
+  animation: scrolldown 1.5s ease-in-out infinite;
+}
+
+/* ===== Availability dot animation ===== */
+
+@keyframes pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.6;
+    transform: scale(1.2);
+  }
+}
+
+.pulse-dot {
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+/* ===== Typing cursor animation ===== */
+
+@keyframes blink {
+  0%, 50% {
+    opacity: 1;
+  }
+  51%, 100% {
+    opacity: 0;
+  }
+}
+
+.typing-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+/* ===== Flip card 3D ===== */
+
+.flip-card {
+  perspective: 1000px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+/* ===== Timeline animations ===== */
+
+.slide-from-left {
+  opacity: 0;
+  transform: translateX(-50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-from-left.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.slide-from-right {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.slide-from-right.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ===== Selection ===== */
+
+::selection {
+  background-color: var(--accent);
+  color: var(--bg-base);
+}
+
+/* ===== Scrollbar ===== */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--bg-elevated);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-subtle);
+}
+
+/* ===== Reduced motion ===== */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .scroll-reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .slide-from-left,
+  .slide-from-right {
+    opacity: 1;
+    transform: none;
+  }
+
+  .flip-card:hover .flip-card-inner {
+    transform: none;
+  }
+}
