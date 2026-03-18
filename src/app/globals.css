@@ -5,6 +5,7 @@
 :root {
   /* Accent colors */
   --accent: #7990FF;
+  --accent-rgb: 121, 144, 255;
   --accent-dim: #5B6EE8;
   --accent-ghost: rgba(121, 144, 255, 0.10);
   --accent-border: rgba(121, 144, 255, 0.38);

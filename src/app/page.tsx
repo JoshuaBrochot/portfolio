@@ -5,11 +5,13 @@ import { ExperienceSection } from "@/components/sections/ExperienceSection";
 import { SkillsSection } from "@/components/sections/SkillsSection";
 import { ProjectsSection } from "@/components/sections/ProjectsSection";
 import { SectionDots } from "@/components/ui/SectionDots";
+import { TransitionOrb } from "@/components/ui/TransitionOrb";
 
 export default function Home() {
   return (
     <main>
       <SectionDots />
+      <TransitionOrb />
       <HeroSection />
       <InterestsSection />
       <EducationSection />
