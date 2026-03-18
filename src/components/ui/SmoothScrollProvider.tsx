@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, ReactNode } from "react";
 import Lenis from "lenis";
+import { CustomCursor } from "./CustomCursor";
 
 interface SmoothScrollProviderProps {
   children: ReactNode;
@@ -57,5 +58,10 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     };
   }, []);
 
-  return <>{children}</>;
+  return (
+    <>
+      <CustomCursor />
+      {children}
+    </>
+  );
 }

@@ -96,7 +96,7 @@ export function SkillsSection() {
               key={category}
               onClick={() => setActiveCategory(category)}
               className="rounded-full px-4 py-2 font-mono text-xs font-medium uppercase tracking-wider transition-colors duration-200"
-              data-cursor
+              data-cursor-clickable
               data-cursor-label="Filter"
               style={{
                 backgroundColor:
@@ -149,6 +149,7 @@ export function SkillsSection() {
                     opacity: { duration: 0.2 },
                   }}
                   className="cursor-default rounded px-3 py-1.5 font-mono"
+                  data-cursor
                   style={{
                     fontSize: styles.fontSize,
                     backgroundColor: "var(--accent-ghost)",

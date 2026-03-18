@@ -47,7 +47,7 @@ body {
 }
 
 /* Hide cursor on desktop */
-/* @media (pointer: fine) {
+@media (pointer: fine) {
   body {
     cursor: none;
   }
@@ -55,7 +55,7 @@ body {
   a, button, [data-cursor] {
     cursor: none;
   }
-} */
+}
 
 /* ===== Grid background ===== */
 

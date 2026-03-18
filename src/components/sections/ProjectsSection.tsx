@@ -94,8 +94,8 @@ export function ProjectsSection() {
                 key={project.id}
                 onClick={() => setSelectedProject(project)}
                 className="w-full text-left"
-                data-cursor
-                data-cursor-label="View →"
+                data-cursor-clickable
+                data-cursor-label="View"
               >
                 <div
                   className="group relative overflow-hidden rounded-xl p-6 transition-all duration-300"
@@ -235,7 +235,7 @@ export function ProjectsSection() {
                   onClick={() => setSelectedProject(project)}
                   className="w-full text-left"
                   data-cursor
-                  data-cursor-label="View →"
+                  data-cursor-label="View"
                 >
                   <div
                     className="group relative h-[400px] overflow-hidden rounded-xl transition-all duration-300"
