@@ -59,24 +59,11 @@ export function EducationSection() {
             </h2>
           </div>
 
-          <div className="relative pl-8">
+          <div className="relative">
             {/* Timeline line */}
-            <div
-              className="absolute bottom-0 left-3 top-0 w-px"
-              style={{ backgroundColor: "var(--border)" }}
-            />
 
             {EDUCATION.map((item, index) => (
               <div key={index} className="relative mb-8 last:mb-0">
-                {/* Node */}
-                <div
-                  className="absolute -left-5 top-1 h-4 w-4 rounded-full"
-                  style={{
-                    backgroundColor: item.current ? "var(--accent)" : "var(--bg-elevated)",
-                    border: `2px solid ${item.current ? "var(--accent)" : "var(--border)"}`,
-                    boxShadow: item.current ? "0 0 12px var(--accent-glow)" : "none",
-                  }}
-                />
 
                 {/* Card */}
                 <div
@@ -86,12 +73,28 @@ export function EducationSection() {
                     border: `1px solid ${item.current ? "var(--accent-border)" : "var(--border)"}`,
                   }}
                 >
-                  <span
-                    className="font-mono text-xs font-medium uppercase tracking-wider"
-                    style={{ color: "var(--accent)" }}
-                  >
-                    {item.period}
-                  </span>
+                  {/* Period and status */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span
+                      className="font-mono text-xs font-medium uppercase tracking-wider"
+                      style={{ color: "var(--accent)" }}
+                    >
+                      {item.period}
+                    </span>
+                    {item.current && (
+                      <span
+                        className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase"
+                        style={{
+                          backgroundColor: "var(--accent-ghost)",
+                          color: "var(--accent)",
+                        }}
+                      >
+                        <span className="pulse-dot h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
+                        en cours
+                      </span>
+                    )}
+                  </div>
+                  
                   <h3
                     className="mt-2 font-display text-lg font-bold"
                     style={{ color: "var(--text-primary)" }}

@@ -105,11 +105,11 @@ export function ProjectsSection() {
                   }}
                 >
                   <span
-                    className="font-display text-6xl font-bold opacity-10"
+                    className="font-display text-4xl font-bold opacity-10"
                     style={{
                       position: "absolute",
                       right: "1rem",
-                      top: "-0.5rem",
+                      top: "0.5rem",
                       color: "var(--accent)",
                     }}
                   >

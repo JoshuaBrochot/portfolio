@@ -165,14 +165,8 @@ export function Navbar() {
               href={link.href}
               onClick={(e) => handleNavClick(e, link.href)}
               className="font-display text-2xl font-bold transition-colors duration-200"
-              style={{
-                color:
-                  activeSection === link.href.slice(1)
-                    ? "var(--accent)"
-                    : "var(--text-primary)",
-              }}
             >
-              {link.label}
+              {link.label.toUpperCase()}
             </a>
           ))}
 
@@ -181,7 +175,7 @@ export function Navbar() {
             className="mt-4 font-display text-2xl font-bold"
             style={{ color: "var(--accent)" }}
           >
-            contact
+            CONTACT
           </a>
         </div>
       </div>

@@ -198,21 +198,21 @@ export function HeroSection() {
           <div className="relative">
             {/* Outer ring */}
             <div
-              className="absolute -inset-4 rounded-full"
+              className="absolute -inset-4 rounded-full md:-inset-4 md:block hidden"
               style={{
                 border: "1px solid rgba(121, 144, 255, 0.2)",
               }}
             />
             {/* Inner ring */}
             <div
-              className="absolute -inset-2 rounded-full"
+              className="absolute -inset-2 rounded-full md:-inset-2 md:block hidden"
               style={{
                 border: "1px solid rgba(121, 144, 255, 0.3)",
               }}
             />
             {/* Avatar circle */}
             <div
-              className="flex h-[360px] w-[360px] items-center justify-center rounded-full"
+              className="flex h-[180px] w-[180px] items-center justify-center rounded-full md:h-[360px] md:w-[360px]"
               style={{
                 backgroundColor: "var(--bg-card)",
                 border: "2px solid var(--accent-border)",
@@ -269,7 +269,7 @@ export function HeroSection() {
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2">
+      <div className="absolute bottom-8 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 md:flex">
         <div
           className="scroll-indicator-line h-8 w-px"
           style={{ backgroundColor: "var(--accent)" }}

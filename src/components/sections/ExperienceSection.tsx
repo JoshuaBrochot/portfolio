@@ -60,25 +60,10 @@ export function ExperienceSection() {
             </h2>
           </div>
 
-          <div className="relative pl-8">
+          <div className="relative">
             {/* Timeline line */}
-            <div
-              className="absolute bottom-0 left-3 top-0 w-px"
-              style={{ backgroundColor: "var(--border)" }}
-            />
-
             {EXPERIENCES.map((exp, index) => (
               <div key={index} className="relative mb-8 last:mb-0">
-                {/* Node */}
-                <div
-                  className="absolute -left-5 top-1 h-4 w-4 rounded-full"
-                  style={{
-                    backgroundColor: exp.current ? "var(--accent)" : "var(--bg-elevated)",
-                    border: `2px solid ${exp.current ? "var(--accent)" : "var(--border)"}`,
-                    boxShadow: exp.current ? "0 0 12px var(--accent-glow)" : "none",
-                  }}
-                />
-
                 {/* Card */}
                 <div
                   className="rounded-xl p-6"
