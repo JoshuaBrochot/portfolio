@@ -23,7 +23,7 @@ export function ExperienceSection() {
       const itemCount = EXPERIENCES.length;
       const threshold = itemCount === 1
         ? 0.1
-        : 0.1 + (index / (itemCount - 1)) * 0.3;
+        : 0.1 + (index / (itemCount - 1)) * 0.25;
       return currentProgress >= threshold;
     });
     setVisibleItems(newVisible);
@@ -182,7 +182,7 @@ export function ExperienceSection() {
       className="grid-background-fixed relative"
       style={{ backgroundColor: "var(--bg-base)" }}
     >
-      <div ref={containerRef} style={{ height: "400vh" }}>
+      <div ref={containerRef} style={{ height: "250vh" }}>
         <div
           className="sticky top-0 flex h-screen items-center"
           style={{ transform: "translateZ(0)", willChange: "transform" }}

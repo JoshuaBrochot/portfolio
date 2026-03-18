@@ -1,7 +1,7 @@
 export const PROFILE = {
   firstName: "Joshua",
   lastName: "BROCHOT",
-  title: ["Étudiant BUT Informatique", "Développeur Web", "En recherche de stage"],
+  title: ["Étudiant BUT Informatique", "Développeur Web", "En stage au Luxembourg"],
   bio: "Salut ! Je suis étudiant en informatique, passionné par les nouvelles technologies et le développement logiciel. J'aime concevoir des projets bien structurés et créatifs, notamment des logiciels, des jeux et des sites web. Logique et curieux, j'adore acquérir de nouvelles compétences et explorer des idées novatrices.",
   email: "joshua.brochot@gmail.com",
   phone: "+33 07 68 84 93 38",
@@ -44,16 +44,16 @@ export const EDUCATION = [
   {
     period: "2020 – 2023",
     school: "Lycée Saint-Exupéry",
-    degree: "BAC général — mention bien",
+    degree: "BAC général",
     detail: "Spécialités Mathématiques & NSI",
-    current: true,
+    current: false,
   },
   {
-    period: "2023 – 2026 (en cours)",
+    period: "2023 – 2026",
     school: "IUT de Metz — Université de Lorraine",
     degree: "BUT 3 Informatique",
     detail: "Parcours développement logiciel",
-    current: false,
+    current: true,
   },
 
 ];
@@ -64,7 +64,7 @@ export const EXPERIENCES = [
     company: "TMT",
     location: "Luxembourg",
     role: "Stage R&D",
-    current: true,
+    current: false,
     missions: [
       "Développement d'un système de détection pour maintenance prédictive",
       "Traitement et analyse d'images thermiques",
@@ -73,11 +73,11 @@ export const EXPERIENCES = [
     tags: ["Python", "Computer Vision", "Traitement d'image"],
   },
   {
-    period: "Février 2026 – Juin 2026 (en cours)",
+    period: "Février 2026 – Juin 2026",
     company: "Paul Wurth",
     location: "Luxembourg",
     role: "Stage IT — Développement logiciel",
-    current: false,
+    current: true,
     missions: [
       "Refonte complète d'un logiciel de gestion de contrats et d'administration",
       "Conception et développement de l'interface utilisateur",

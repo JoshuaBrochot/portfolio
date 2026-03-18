@@ -21,8 +21,8 @@ export function EducationSection() {
     const newVisible = EDUCATION.map((_, index) => {
       const itemCount = EDUCATION.length;
       const threshold = itemCount === 1
-        ? 0.1
-        : 0.1 + (index / (itemCount - 1)) * 0.3;
+        ? 0.05
+        : 0.05 + (index / (itemCount - 1)) * 0.25;
       return currentProgress >= threshold;
     });
     setVisibleItems(newVisible);
@@ -126,7 +126,7 @@ export function EducationSection() {
       className="grid-background-fixed relative"
       style={{ backgroundColor: "var(--bg-base)" }}
     >
-      <div ref={containerRef} style={{ height: "300vh" }}>
+      <div ref={containerRef} style={{ height: "180vh" }}>
         <div
           className="sticky top-0 flex h-screen items-center"
           style={{ transform: "translateZ(0)", willChange: "transform" }}
@@ -207,12 +207,27 @@ export function EducationSection() {
                         willChange: "opacity",
                       }}
                     >
-                      <span
-                        className="font-mono text-xs font-medium uppercase tracking-wider"
-                        style={{ color: "var(--accent)" }}
-                      >
-                        {item.period}
-                      </span>
+                      {/* Period and status */}
+                      <div className="flex flex-wrap items-center gap-2">
+                        <span
+                          className="font-mono text-xs font-medium uppercase tracking-wider"
+                          style={{ color: "var(--accent)" }}
+                        >
+                          {item.period}
+                        </span>
+                        {item.current && (
+                          <span
+                            className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase"
+                            style={{
+                              backgroundColor: "var(--accent-ghost)",
+                              color: "var(--accent)",
+                            }}
+                          >
+                            <span className="pulse-dot h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
+                            en cours
+                          </span>
+                        )}
+                      </div>
                       <h3
                         className="mt-2 font-display text-xl font-bold"
                         style={{ color: "var(--text-primary)" }}

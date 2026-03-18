@@ -21,7 +21,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Joshua BROCHOT | Portfolio",
   description:
-    "Étudiant en BUT Informatique à l'IUT de Metz, développeur web en recherche de stage.",
+    "Étudiant en BUT Informatique à l'IUT de Metz, développeur web, actuellement en stage.",
   keywords: [
     "Joshua Brochot",
     "développeur",
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Joshua BROCHOT | Portfolio",
     description:
-      "Étudiant en BUT Informatique à l'IUT de Metz, développeur web en recherche de stage.",
+      "Étudiant en BUT Informatique à l'IUT de Metz, développeur web, actuellement en stage.",
     type: "website",
     locale: "fr_FR",
   },
