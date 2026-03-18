@@ -273,6 +273,52 @@ body {
   transform: translateY(0);
 }
 
+/* ===== Mobile version — toujours afficher le contenu ===== */
+@media (max-width: 767px) {
+  .interest-card {
+    transition: none;
+    will-change: auto;
+  }
+
+  .interest-card::before {
+    opacity: 0.5;
+  }
+
+  .interest-card .interest-icon,
+  .interest-card h3 {
+    opacity: 1;
+    filter: blur(0);
+  }
+
+  .interest-textbox {
+    opacity: 1;
+    transform: translateY(0);
+    transition: none;
+  }
+
+  /* Désactiver tous les effets hover sur mobile */
+  .interest-card:hover {
+    transform: translateY(0) !important;
+    border-color: rgba(255, 255, 255, 0.07) !important;
+    box-shadow: none !important;
+  }
+
+  .interest-card:hover::before {
+    opacity: 0.5 !important;
+  }
+
+  .interest-card:hover .interest-icon,
+  .interest-card:hover h3 {
+    opacity: 1 !important;
+    filter: blur(0) !important;
+  }
+
+  .interest-card:hover .interest-textbox {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+}
+
 /* ===== Timeline animations ===== */
 
 .slide-from-left {

@@ -123,14 +123,14 @@ export function InterestsSection() {
                 }}
               >
                 <div
-                  className="interest-card relative h-56 overflow-hidden rounded-xl"
+                  className="interest-card relative h-56 overflow-hidden rounded-xl md:h-56"
                   style={{
                     backgroundColor: "var(--bg-card)",
                     border: "0.5px solid var(--border)",
                   }}
                 >
-                  {/* Contenu principal — toujours visible */}
-                  <div className="relative z-10 flex h-full flex-col items-center justify-center p-6">
+                  {/* Desktop: Contenu principal (icône + titre) */}
+                  <div className="relative z-10 hidden flex-col items-center justify-center p-6 md:flex h-full">
                     {Icon && (
                       <Icon
                         size={32}
@@ -146,10 +146,33 @@ export function InterestsSection() {
                     </h3>
                   </div>
 
-                  {/* Description — apparaît au hover */}
-                  <div className="interest-textbox absolute inset-0 z-20 flex items-center justify-center p-6">
+                  {/* Desktop: Description — apparaît au hover */}
+                  <div className="interest-textbox absolute inset-0 z-20 hidden items-center justify-center p-6 md:flex">
                     <p
                       className="text-center font-mono text-[18px] leading-relaxed"
+                      style={{ color: "var(--text-muted)" }}
+                    >
+                      {interest.desc}
+                    </p>
+                  </div>
+
+                  {/* Mobile: Contenu complet (icône + titre + description) */}
+                  <div className="flex h-full flex-col items-center justify-center gap-4 p-6 md:hidden">
+                    {Icon && (
+                      <Icon
+                        size={32}
+                        color="var(--accent)"
+                        className="interest-icon"
+                      />
+                    )}
+                    <h3
+                      className="font-display text-lg font-bold text-center"
+                      style={{ color: "var(--text-primary)" }}
+                    >
+                      {interest.label}
+                    </h3>
+                    <p
+                      className="text-center font-mono text-sm leading-relaxed"
                       style={{ color: "var(--text-muted)" }}
                     >
                       {interest.desc}
