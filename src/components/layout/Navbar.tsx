@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
 import type Lenis from "lenis";
 
 const NAV_LINKS = [
@@ -136,48 +135,131 @@ export function Navbar() {
 
           {/* Mobile Burger */}
           <button
-            className="flex h-10 w-10 items-center justify-center md:hidden"
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '5px',
+              width: '32px',
+              height: '32px',
+              background: 'none',
+              border: 'none',
+              cursor: 'none',
+              padding: '0',
+              position: 'relative',
+            }}
           >
-            {isMobileMenuOpen ? (
-              <X size={24} style={{ color: "var(--text-primary)" }} />
-            ) : (
-              <Menu size={24} style={{ color: "var(--text-primary)" }} />
-            )}
+            {/* Trait haut */}
+            <span style={{
+              display: 'block',
+              width: '22px',
+              height: '1.5px',
+              background: 'var(--text-muted)',
+              borderRadius: '2px',
+              transformOrigin: 'center',
+              transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+              transform: isMobileMenuOpen
+                ? 'translateY(6.5px) rotate(45deg)'
+                : 'translateY(0) rotate(0deg)',
+            }} />
+
+            {/* Trait milieu */}
+            <span style={{
+              display: 'block',
+              width: '22px',
+              height: '1.5px',
+              background: 'var(--text-muted)',
+              borderRadius: '2px',
+              transformOrigin: 'center',
+              transition: 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.2s ease',
+              transform: isMobileMenuOpen ? 'scaleX(0)' : 'scaleX(1)',
+              opacity: isMobileMenuOpen ? 0 : 1,
+            }} />
+
+            {/* Trait bas */}
+            <span style={{
+              display: 'block',
+              width: '22px',
+              height: '1.5px',
+              background: 'var(--text-muted)',
+              borderRadius: '2px',
+              transformOrigin: 'center',
+              transition: 'transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)',
+              transform: isMobileMenuOpen
+                ? 'translateY(-6.5px) rotate(-45deg)'
+                : 'translateY(0) rotate(0deg)',
+            }} />
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile Menu Overlay — toujours dans le DOM, animé par transform */}
       <div
-        className={`fixed inset-0 z-40 flex flex-col items-center justify-center transition-all duration-300 md:hidden ${
-          isMobileMenuOpen
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
-        }`}
-        style={{ backgroundColor: "var(--bg-base)" }}
+        className="md:hidden"
+        style={{
+          position: 'fixed',
+          inset: 0,
+          zIndex: 40,
+          background: 'rgba(10, 10, 10)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '2rem',
+          // Slide depuis le haut
+          transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-100%)',
+          opacity: isMobileMenuOpen ? 1 : 0,
+          transition: isMobileMenuOpen
+            ? 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease'
+            : 'transform 0.4s cubic-bezier(0.4, 0, 1, 1), opacity 0.25s ease',
+          pointerEvents: isMobileMenuOpen ? 'auto' : 'none',
+        }}
       >
-        <div className="flex flex-col items-center gap-8">
-          {NAV_LINKS.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className="font-display text-2xl font-bold transition-colors duration-200"
-            >
-              {link.label.toUpperCase()}
-            </a>
-          ))}
-
+        {NAV_LINKS.map((link, index) => (
           <a
-            href="mailto:joshua.brochot@gmail.com"
-            className="mt-4 font-display text-2xl font-bold"
-            style={{ color: "var(--accent)" }}
+            key={link.href}
+            href={link.href}
+            onClick={(e) => handleNavClick(e, link.href)}
+            style={{
+              fontFamily: 'var(--font-display), sans-serif',
+              fontSize: '2rem',
+              fontWeight: 700,
+              letterSpacing: '-0.02em',
+              textDecoration: 'none',
+              opacity: isMobileMenuOpen ? 1 : 0,
+              transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-16px)',
+              transition: isMobileMenuOpen
+                ? `opacity 0.4s ease ${index * 60 + 150}ms, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${index * 60 + 150}ms`
+                : 'opacity 0.2s ease, transform 0.2s ease',
+            }}
           >
-            CONTACT
+            {link.label.toUpperCase()}
           </a>
-        </div>
+        ))}
+
+        <a
+          href="mailto:joshua.brochot@gmail.com"
+          style={{
+            fontFamily: 'var(--font-display), sans-serif',
+            fontSize: '2rem',
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
+            textDecoration: 'none',
+            color: 'var(--accent)',
+            marginTop: '1rem',
+            opacity: isMobileMenuOpen ? 1 : 0,
+            transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-16px)',
+            transition: isMobileMenuOpen
+              ? `opacity 0.4s ease ${NAV_LINKS.length * 60 + 150}ms, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${NAV_LINKS.length * 60 + 150}ms`
+              : 'opacity 0.2s ease, transform 0.2s ease',
+          }}
+        >
+          CONTACT
+        </a>
       </div>
     </>
   );
