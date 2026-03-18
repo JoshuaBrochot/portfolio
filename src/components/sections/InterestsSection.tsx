@@ -117,26 +117,25 @@ export function InterestsSection() {
             return (
               <div
                 key={interest.label}
-                className="flip-card h-56"
                 style={{
                   transform: isMobile ? "translateZ(0)" : `translateY(${columnOffsets[index]}px) translateZ(0)`,
                   willChange: isMobile ? "auto" : "transform",
                 }}
               >
-                <div className="flip-card-inner h-full w-full">
-                  {/* Front */}
-                  <div
-                    className="flip-card-front flex flex-col items-center justify-center rounded-xl p-6"
-                    style={{
-                      backgroundColor: "var(--bg-card)",
-                      border: "1px solid var(--border)",
-                    }}
-                  >
+                <div
+                  className="interest-card relative h-56 overflow-hidden rounded-xl"
+                  style={{
+                    backgroundColor: "var(--bg-card)",
+                    border: "0.5px solid var(--border)",
+                  }}
+                >
+                  {/* Contenu principal — toujours visible */}
+                  <div className="relative z-10 flex h-full flex-col items-center justify-center p-6">
                     {Icon && (
                       <Icon
                         size={32}
                         color="var(--accent)"
-                        className="mb-4"
+                        className="interest-icon mb-4"
                       />
                     )}
                     <h3
@@ -147,17 +146,11 @@ export function InterestsSection() {
                     </h3>
                   </div>
 
-                  {/* Back */}
-                  <div
-                    className="flip-card-back flex flex-col items-center justify-center rounded-xl p-6 text-center"
-                    style={{
-                      backgroundColor: "var(--accent-ghost)",
-                      border: "1px solid var(--accent-border)",
-                    }}
-                  >
+                  {/* Description — apparaît au hover */}
+                  <div className="interest-textbox absolute inset-0 z-20 flex items-center justify-center p-6">
                     <p
-                      className="font-mono text-sm font-light leading-relaxed"
-                      style={{ color: "var(--text-primary)" }}
+                      className="text-center font-mono text-[18px] leading-relaxed"
+                      style={{ color: "var(--text-muted)" }}
                     >
                       {interest.desc}
                     </p>

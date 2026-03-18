@@ -198,34 +198,79 @@ body {
 
 /* ===== Flip card 3D ===== */
 
-.flip-card {
-  perspective: 1000px;
-}
+/* ===== Interest cards hover effect ===== */
 
-.flip-card-inner {
+.interest-card {
   position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.6s;
-  transform-style: preserve-3d;
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+              box-shadow 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+              border-color 220ms ease;
   will-change: transform;
 }
 
-.flip-card:hover .flip-card-inner {
-  transform: rotateY(180deg);
-}
-
-.flip-card-front,
-.flip-card-back {
+/* Reflet radial */
+.interest-card::before {
+  content: "";
   position: absolute;
-  width: 100%;
-  height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at 30% 20%, rgba(121, 144, 255, 0.10), transparent 55%);
+  opacity: 0.5;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+  z-index: 0;
 }
 
-.flip-card-back {
-  transform: rotateY(180deg);
+.interest-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.15) !important;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.45);
+}
+
+.interest-card:hover::before {
+  opacity: 1;
+}
+
+/* L'icône — état de base */
+.interest-card .interest-icon {
+  opacity: 1;
+  filter: blur(0);
+  transition: opacity 220ms ease, filter 220ms ease;
+}
+
+/* L'icône au hover — disparaît */
+.interest-card:hover .interest-icon {
+  opacity: 0;
+  filter: blur(2px);
+}
+
+/* Le titre — état de base */
+.interest-card h3 {
+  opacity: 1;
+  filter: blur(0);
+  transition: opacity 220ms ease, filter 220ms ease;
+}
+
+/* Le titre au hover — disparaît */
+.interest-card:hover h3 {
+  opacity: 0;
+  filter: blur(2px);
+}
+
+/* La description apparaît au hover */
+.interest-textbox {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 200ms ease,
+              transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.interest-card:hover .interest-textbox {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ===== Timeline animations ===== */
@@ -303,7 +348,7 @@ body {
     transform: none;
   }
 
-  .flip-card:hover .flip-card-inner {
-    transform: none;
+  .interest-card:hover .interest-icon {
+    animation: none;
   }
 }
