@@ -96,6 +96,8 @@ export function SkillsSection() {
               key={category}
               onClick={() => setActiveCategory(category)}
               className="rounded-full px-4 py-2 font-mono text-xs font-medium uppercase tracking-wider transition-colors duration-200"
+              data-cursor
+              data-cursor-label="Filter"
               style={{
                 backgroundColor:
                   activeCategory === category ? "var(--accent)" : "var(--bg-card)",

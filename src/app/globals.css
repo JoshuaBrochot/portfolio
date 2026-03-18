@@ -43,6 +43,7 @@ body {
   background-color: var(--bg-base);
   color: var(--text-primary);
   font-family: var(--font-mono), ui-monospace, monospace;
+  body { overflow-x: hidden; }
 }
 
 /* Hide cursor on desktop */

@@ -1,53 +1,76 @@
 "use client";
 
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 import { PROJECTS } from "@/data/portfolio";
 import { ProjectModal } from "@/components/ui/ProjectModal";
-import { useScrollRAF } from "@/hooks/useScrollRAF";
 
 type Project = (typeof PROJECTS)[number];
 
 export function ProjectsSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const stripRef = useRef<HTMLDivElement>(null);
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [isMobile, setIsMobile] = useState(true); // Default to mobile for SSR
+  const [isMobile, setIsMobile] = useState(true);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
-  const [windowWidth, setWindowWidth] = useState(1200); // Default for SSR
+  const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
+  const [animatedCards, setAnimatedCards] = useState<Set<number>>(new Set());
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
 
   useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-      setWindowWidth(window.innerWidth);
-    };
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener("resize", checkMobile);
     return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
-  // Handle active index update based on progress
-  const handleProgressUpdate = useCallback((currentProgress: number) => {
-    const newActiveIndex = Math.min(
-      PROJECTS.length - 1,
-      Math.floor(currentProgress * PROJECTS.length)
-    );
-    setActiveIndex(newActiveIndex);
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mediaQuery.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
-  // Use RAF hook for optimized scroll calculations
-  const progress = useScrollRAF({
-    enabled: !isMobile,
-    containerRef,
-    onUpdate: handleProgressUpdate,
-  });
+  // Scroll listener — détecte quand les cartes entrent dans le viewport
+  // Utilise getBoundingClientRect() qui ignoré les transforms
+  useEffect(() => {
+    if (isMobile) return;
 
-  // Mobile view - vertical stack
+    const handleScroll = () => {
+      cardRefs.current.forEach((card, index) => {
+        if (!card) return;
+
+        const rect = card.getBoundingClientRect();
+        // Considérer la carte comme visible si elle est dans le viewport + une marge de 5%
+        const isInViewport = rect.top < window.innerHeight * 0.95 && rect.bottom > 0;
+
+        if (isInViewport) {
+          setVisibleCards((prev) => {
+            if (prev.has(index)) return prev;
+            const newSet = new Set(prev);
+            newSet.add(index);
+            return newSet;
+          });
+        }
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    // Trigger immédiatement au montage pour les cartes déjà visibles
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isMobile]);
+
+  const handleTransitionEnd = (index: number) => {
+    setAnimatedCards((prev) => new Set(prev).add(index));
+  };
+
+  // ── Mobile ────────────────────────────────────────────────────────────────
   if (isMobile) {
     return (
       <section
         id="projets"
         className="grid-background relative py-24"
-        style={{ backgroundColor: "var(--bg-base)" }}
+        style={{ backgroundColor: "var(--bg-base)", overflowX: "hidden" }}
       >
         <div className="mx-auto max-w-7xl px-6">
           <div className="mb-12">
@@ -81,7 +104,6 @@ export function ProjectsSection() {
                     border: "1px solid var(--border)",
                   }}
                 >
-                  {/* Project number */}
                   <span
                     className="font-display text-6xl font-bold opacity-10"
                     style={{
@@ -154,63 +176,64 @@ export function ProjectsSection() {
     );
   }
 
-  // Desktop view - horizontal film strip
-  const cardWidth = Math.min(380, Math.max(280, windowWidth * 0.4));
-  const gap = 24;
-  const totalWidth = PROJECTS.length * (cardWidth + gap) - gap;
-  const maxTranslate = totalWidth - windowWidth + 200;
-
+  // ── Desktop ───────────────────────────────────────────────────────────────
   return (
     <section
       id="projets"
-      className="grid-background-fixed relative"
-      style={{ backgroundColor: "var(--bg-base)" }}
+      className="grid-background relative py-24"
+      // overflow-x: hidden ici est le correctif clé :
+      // il empêche les cards en translateX(110vw) de créer une scrollbar horizontale
+      // et force l'IntersectionObserver à se déclencher au scroll vertical uniquement.
+      style={{ backgroundColor: "var(--bg-base)", overflowX: "hidden" }}
     >
-      <div ref={containerRef} style={{ height: "400vh" }}>
-        <div
-          className="sticky top-0 flex h-screen flex-col justify-center overflow-hidden"
-          style={{ transform: "translateZ(0)", willChange: "transform" }}
-        >
-          {/* Header */}
-          <div className="mx-auto w-full max-w-7xl px-6 pb-8">
-            <span
-              className="font-mono text-xs font-medium uppercase tracking-widest"
-              style={{ color: "var(--accent)" }}
-            >
-              Réalisations
-            </span>
-            <h2
-              className="mt-2 font-display text-4xl font-bold"
-              style={{ color: "var(--text-primary)" }}
-            >
-              Projets
-            </h2>
-          </div>
-
-          {/* Film strip - centered */}
-          <div
-            ref={stripRef}
-            className="flex justify-center gap-6 px-6"
-            style={{
-              transform: `translateX(-${progress * maxTranslate}px) translateZ(0)`,
-              willChange: "transform",
-            }}
+      <div className="mx-auto max-w-7xl px-6">
+        <div className="mb-12">
+          <span
+            className="font-mono text-xs font-medium uppercase tracking-widest"
+            style={{ color: "var(--accent)" }}
           >
-            {PROJECTS.map((project, index) => {
-              const isActive = index === activeIndex;
-              const imageParallaxOffset = progress * (cardWidth * 0.3);
+            Réalisations
+          </span>
+          <h2
+            className="mt-2 font-display text-4xl font-bold"
+            style={{ color: "var(--text-primary)" }}
+          >
+            Projets
+          </h2>
+        </div>
 
-              return (
+        {/* overflow-x: hidden sur la grille en complément de la section */}
+        <div
+          className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3"
+          style={{ overflowX: "hidden" }}
+        >
+          {PROJECTS.map((project, index) => {
+            const isVisible = visibleCards.has(index);
+            const hasAnimated = animatedCards.has(index);
+            const delay = index * 120;
+
+            return (
+              <div
+                key={project.id}
+                ref={(el) => { cardRefs.current[index] = el; }}
+                data-card-index={index}
+                style={{
+                  transform:
+                    isVisible || prefersReducedMotion
+                      ? "translateX(0)"
+                      : "translateX(110vw)",
+                  opacity: isVisible ? 1 : 0,
+                  transition: prefersReducedMotion
+                    ? "opacity 0.3s ease-out"
+                    : `transform 1.2s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms, opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1) ${delay}ms`,
+                  // will-change retiré après la fin de l'animation pour libérer le layer GPU
+                  willChange: hasAnimated ? "auto" : "transform",
+                }}
+                onTransitionEnd={() => handleTransitionEnd(index)}
+              >
                 <button
-                  key={project.id}
                   onClick={() => setSelectedProject(project)}
-                  className="flex-shrink-0 text-left transition-all duration-300"
-                  style={{
-                    width: `clamp(280px, 40vw, 380px)`,
-                    opacity: isActive ? 1 : 0.5,
-                    transform: `scale(${isActive ? 1 : 0.97}) translateZ(0)`,
-                    willChange: "opacity, transform",
-                  }}
+                  className="w-full text-left"
                   data-cursor
                   data-cursor-label="View →"
                 >
@@ -218,18 +241,10 @@ export function ProjectsSection() {
                     className="group relative h-[400px] overflow-hidden rounded-xl transition-all duration-300"
                     style={{
                       backgroundColor: project.color || "var(--bg-card)",
-                      border: `1px solid ${isActive ? "var(--accent-border)" : "var(--border)"}`,
+                      border: "1px solid var(--border)",
                     }}
                   >
-                    {/* Image placeholder with parallax */}
-                    <div
-                      className="absolute inset-0 flex items-center justify-center"
-                      style={{
-                        transform: `translateX(${-imageParallaxOffset * 0.3}px) translateZ(0)`,
-                        willChange: "transform",
-                      }}
-                    >
-                      {/* Project number as visual element */}
+                    <div className="absolute inset-0 flex items-center justify-center">
                       <span
                         className="font-display text-[200px] font-bold opacity-5"
                         style={{ color: "var(--accent)" }}
@@ -238,7 +253,6 @@ export function ProjectsSection() {
                       </span>
                     </div>
 
-                    {/* Content overlay */}
                     <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 via-black/40 to-transparent p-6">
                       <span
                         className="font-mono text-xs font-medium uppercase tracking-wider"
@@ -289,38 +303,9 @@ export function ProjectsSection() {
                     </div>
                   </div>
                 </button>
-              );
-            })}
-          </div>
-
-          {/* Dots navigation */}
-          <div className="mt-8 flex justify-center gap-2">
-            {PROJECTS.map((_, index) => (
-              <button
-                key={index}
-                className="h-2 w-2 rounded-full transition-all duration-300"
-                style={{
-                  backgroundColor:
-                    index === activeIndex ? "var(--accent)" : "var(--bg-elevated)",
-                  transform: index === activeIndex ? "scale(1.2)" : "scale(1)",
-                }}
-                onClick={() => {
-                  // Calculate scroll position to reach this project
-                  if (containerRef.current) {
-                    const containerTop =
-                      containerRef.current.getBoundingClientRect().top + window.scrollY;
-                    const containerHeight = containerRef.current.offsetHeight;
-                    const windowHeight = window.innerHeight;
-                    const scrollableDistance = containerHeight - windowHeight;
-                    const targetProgress = index / (PROJECTS.length - 1);
-                    const targetScroll = containerTop + targetProgress * scrollableDistance;
-                    window.scrollTo({ top: targetScroll, behavior: "smooth" });
-                  }
-                }}
-                aria-label={`Go to project ${index + 1}`}
-              />
-            ))}
-          </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
