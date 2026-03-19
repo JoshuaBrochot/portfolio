@@ -134,7 +134,6 @@ export function HeroSection() {
           >
             <span style={{ color: "var(--text-primary)" }}>{PROFILE.firstName} </span>
             <span style={{ color: "var(--accent)" }}>{PROFILE.lastName}</span>
-            <span style={{ color: "var(--accent)" }}>.</span>
           </h1>
 
           {/* Typing effect title */}

@@ -3,6 +3,7 @@ import { Syne, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScrollProvider } from "@/components/ui/SmoothScrollProvider";
 import { Navbar } from "@/components/layout/Navbar";
+import { Preloader } from "@/components/ui/Preloader";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -48,6 +49,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${syne.variable} ${ibmPlexMono.variable} antialiased`}>
+        <Preloader />
         <SmoothScrollProvider>
           <Navbar />
           {children}
