@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import type Lenis from "lenis";
+import ContactModal from "@/components/ui/ContactModal";
 
 const NAV_LINKS = [
   { href: "#profil", label: "profil" },
@@ -15,6 +16,7 @@ export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("profil");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   // Handle scroll background
   useEffect(() => {
@@ -119,18 +121,19 @@ export function Navbar() {
             ))}
 
             {/* CTA Contact */}
-            <a
-              href="mailto:joshua.brochot@gmail.com"
+            <button
+              onClick={() => setContactOpen(true)}
               className="font-mono text-[11px] font-medium uppercase tracking-wider transition-colors duration-200"
               style={{
                 color: "var(--accent)",
                 padding: "0.5rem 1rem",
                 border: "1px solid var(--accent-border)",
                 borderRadius: "4px",
+                background: "none",
               }}
             >
               contact
-            </a>
+            </button>
           </div>
 
           {/* Mobile Burger */}
@@ -241,8 +244,11 @@ export function Navbar() {
           </a>
         ))}
 
-        <a
-          href="mailto:joshua.brochot@gmail.com"
+        <button
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+            setContactOpen(true);
+          }}
           style={{
             fontFamily: 'var(--font-display), sans-serif',
             fontSize: '2rem',
@@ -256,11 +262,15 @@ export function Navbar() {
             transition: isMobileMenuOpen
               ? `opacity 0.4s ease ${NAV_LINKS.length * 60 + 150}ms, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${NAV_LINKS.length * 60 + 150}ms`
               : 'opacity 0.2s ease, transform 0.2s ease',
+            background: 'none',
+            border: 'none',
           }}
         >
           CONTACT
-        </a>
+        </button>
       </div>
-    </>
+
+      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
+</>
   );
 }

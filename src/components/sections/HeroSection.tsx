@@ -3,6 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { ArrowDown, Github, Linkedin, Mail, type LucideIcon } from "lucide-react";
 import { PROFILE } from "@/data/portfolio";
+import ContactModal from "@/components/ui/ContactModal";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   GitHub: Github,
@@ -14,6 +15,7 @@ export function HeroSection() {
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
 
   // Typing effect
@@ -162,21 +164,42 @@ export function HeroSection() {
               Voir mes projets
               <ArrowDown size={16} />
             </a>
-            <a href={`mailto:${PROFILE.email}`} className="btn-outline">
+            <button
+              onClick={() => setContactOpen(true)}
+              className="btn-outline"
+            >
               Me contacter
-            </a>
+            </button>
           </div>
 
           {/* Socials */}
           <div className="mt-8 flex gap-4">
             {PROFILE.socials.map((social) => {
               const Icon = ICON_MAP[social.label];
+
+              if (social.label === "Email") {
+                return (
+                  <button
+                    key={social.label}
+                    onClick={() => setContactOpen(true)}
+                    className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200"
+                    style={{
+                      backgroundColor: "var(--bg-card)",
+                      border: "1px solid var(--border)",
+                    }}
+                    aria-label={social.label}
+                  >
+                    {Icon && <Icon size={18} color="var(--text-muted)" />}
+                  </button>
+                );
+              }
+
               return (
                 <a
                   key={social.label}
                   href={social.href}
-                  target={social.label !== "Email" ? "_blank" : undefined}
-                  rel={social.label !== "Email" ? "noopener noreferrer" : undefined}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200"
                   style={{
                     backgroundColor: "var(--bg-card)",
@@ -280,6 +303,8 @@ export function HeroSection() {
           scroll
         </span>
       </div>
+
+      <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
     </section>
   );
 }

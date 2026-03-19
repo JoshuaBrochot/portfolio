@@ -63,7 +63,7 @@ export function CustomCursor() {
   return (
     <div
       ref={cursorRef}
-      className="pointer-events-none fixed left-0 top-0 z-[9999] flex items-center justify-center"
+      className="pointer-events-none fixed left-0 top-0 z-[99999] flex items-center justify-center"
       style={{
         width: isHovering ? "48px" : "32px",
         height: isHovering ? "48px" : "32px",

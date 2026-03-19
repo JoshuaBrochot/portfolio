@@ -48,12 +48,8 @@ body {
 
 /* Hide cursor on desktop */
 @media (pointer: fine) {
-  body {
-    cursor: none;
-  }
-
-  a, button, [data-cursor] {
-    cursor: none;
+  * {
+    cursor: none !important;
   }
 }
 
@@ -369,6 +365,15 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-subtle);
+}
+
+/* ===== Reduced motion ===== */
+
+/* ===== Spinner animation ===== */
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* ===== Reduced motion ===== */
