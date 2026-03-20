@@ -67,7 +67,7 @@ export function EducationSection() {
 
                 {/* Card */}
                 <div
-                  className="rounded-xl p-6"
+                  className="timeline-cards rounded-xl p-6"
                   style={{
                     backgroundColor: "var(--bg-card)",
                     border: `1px solid ${item.current ? "var(--accent-border)" : "var(--border)"}`,
@@ -202,7 +202,7 @@ export function EducationSection() {
 
                     {/* Card */}
                     <div
-                      className="rounded-xl p-6 transition-all duration-300"
+                      className="timeline-cards rounded-xl p-6 transition-all duration-300"
                       style={{
                         backgroundColor: "var(--bg-card)",
                         border: `1px solid ${item.current ? "var(--accent-border)" : "var(--border)"}`,

@@ -66,7 +66,7 @@ export function ExperienceSection() {
               <div key={index} className="relative mb-8 last:mb-0">
                 {/* Card */}
                 <div
-                  className="rounded-xl p-6"
+                  className="timeline-cards rounded-xl p-6"
                   style={{
                     backgroundColor: "var(--bg-card)",
                     border: `1px solid ${exp.current ? "var(--accent-border)" : "var(--border)"}`,
@@ -240,7 +240,7 @@ export function ExperienceSection() {
 
                     {/* Card */}
                     <div
-                      className="rounded-xl p-6 transition-all duration-300"
+                      className="timeline-cards rounded-xl p-6 transition-all duration-300"
                       style={{
                         backgroundColor: "var(--bg-card)",
                         border: `1px solid ${exp.current ? "var(--accent-border)" : "var(--border)"}`,

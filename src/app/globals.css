@@ -269,6 +269,10 @@ body {
   transform: translateY(0);
 }
 
+.timeline-cards {
+    background: radial-gradient(circle at 30% 20%, rgba(121, 144, 255, 0.05), transparent 55%);
+}
+
 /* ===== Mobile version — toujours afficher le contenu ===== */
 @media (max-width: 767px) {
   .interest-card {
