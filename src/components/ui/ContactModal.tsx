@@ -143,9 +143,9 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             role="dialog"
             aria-modal="true"
             aria-label="Formulaire de contact"
-            className="fixed z-[99998] bg-[var(--bg-card)] border border-[var(--accent-border)] overflow-y-auto
+            className="fixed z-[99998] bg-[var(--bg-card)] overflow-y-auto
               top-0 left-0 right-0 bottom-0 p-5
-              sm:top-0 sm:left-1/2 sm:-translate-x-1/2 sm:bottom-auto sm:right-auto sm:w-[640px] sm:max-h-[90dvh] sm:border-t-0 sm:rounded-b-2xl sm:p-8 md:p-12"
+              sm:top-0 sm:left-1/2 sm:-translate-x-1/2 sm:bottom-auto sm:right-auto sm:w-[640px] sm:max-h-[90dvh] sm:border sm:border-[var(--accent-border)] sm:border-t-0 sm:rounded-b-2xl sm:p-8 md:p-12"
           >
             {/* ── Header modal ── */}
             <div className="flex justify-between items-start mb-6 sm:mb-8">
@@ -267,7 +267,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     animate="visible"
                     whileHover={{ scale: status === "loading" ? 1 : 1.02 }}
                     whileTap={{ scale: 0.98 }}
-                    className="mt-2 px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-mono font-medium text-sm sm:text-[0.9rem] tracking-wider flex items-center justify-center gap-2.5 transition-all duration-300"
+                    className="mt-2 px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-mono font-medium text-sm sm:text-[0.9rem] tracking-wider flex items-center justify-center gap-2.5"
                     style={{
                       background: status === "loading" ? "var(--accent-ghost)" : "var(--accent)",
                       color: status === "loading" ? "var(--accent)" : "#0A0A0A",
