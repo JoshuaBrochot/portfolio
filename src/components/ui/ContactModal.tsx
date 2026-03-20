@@ -45,15 +45,21 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [errorMsg, setErrorMsg] = useState("");
   const firstInputRef = useRef<HTMLInputElement>(null);
 
-  // Focus sur le premier champ à l'ouverture
+  // Désactiver le scroll quand le modal est ouvert
   useEffect(() => {
+    const lenis = (window as any).lenis
+
     if (isOpen) {
-      document.body.style.overflow = "hidden";
-      setTimeout(() => firstInputRef.current?.focus(), 400);
+      document.body.style.overflow = 'hidden'
+      if (lenis) lenis.stop()
     } else {
-      document.body.style.overflow = "";
+      document.body.style.overflow = ''
+      if (lenis) lenis.start()
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => {
+      document.body.style.overflow = ''
+      if (lenis) lenis.start()
+    }
   }, [isOpen]);
 
   // Fermer avec Escape
