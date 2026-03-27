@@ -160,7 +160,7 @@ export function Navbar() {
             <span style={{
               display: 'block',
               width: '22px',
-              height: '1.5px',
+              height: '2px',
               background: 'var(--text-muted)',
               borderRadius: '2px',
               transformOrigin: 'center',
@@ -174,7 +174,7 @@ export function Navbar() {
             <span style={{
               display: 'block',
               width: '22px',
-              height: '1.5px',
+              height: '2px',
               background: 'var(--text-muted)',
               borderRadius: '2px',
               transformOrigin: 'center',
@@ -187,7 +187,7 @@ export function Navbar() {
             <span style={{
               display: 'block',
               width: '22px',
-              height: '1.5px',
+              height: '2px',
               background: 'var(--text-muted)',
               borderRadius: '2px',
               transformOrigin: 'center',

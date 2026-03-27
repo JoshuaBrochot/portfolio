@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { ArrowDown, Github, Linkedin, Mail, type LucideIcon } from "lucide-react";
 import { PROFILE } from "@/data/portfolio";
 import ContactModal from "@/components/ui/ContactModal";
+import { Toast } from "@/components/ui/Toast";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   GitHub: Github,
@@ -16,7 +17,21 @@ export function HeroSection() {
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const [showToast, setShowToast] = useState(false);
   const gridRef = useRef<HTMLDivElement>(null);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(PROFILE.email);
+      setShowToast(true);
+    } catch {
+      console.error("Failed to copy email");
+    }
+  };
+
+  const handleCloseToast = useCallback(() => {
+    setShowToast(false);
+  }, []);
 
   // Typing effect
   useEffect(() => {
@@ -181,13 +196,14 @@ export function HeroSection() {
                 return (
                   <button
                     key={social.label}
-                    onClick={() => setContactOpen(true)}
+                    onClick={handleCopyEmail}
                     className="flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-200"
                     style={{
                       backgroundColor: "var(--bg-card)",
                       border: "1px solid var(--border)",
                     }}
                     aria-label={social.label}
+                    title="Copier l'email"
                   >
                     {Icon && <Icon size={18} color="var(--text-muted)" />}
                   </button>
@@ -305,6 +321,12 @@ export function HeroSection() {
       </div>
 
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
+      <Toast
+        isOpen={showToast}
+        message="Mail copié dans le presse-papier !"
+        duration={2000}
+        onClose={handleCloseToast}
+      />
     </section>
   );
 }

@@ -29,16 +29,6 @@ const PANEL_VARIANTS = {
   },
 };
 
-// Stagger sur les champs du formulaire
-const FIELD_VARIANTS = {
-  hidden: { opacity: 0, y: 20 },
-  visible: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    transition: { delay: 0.35 + i * 0.07, duration: 0.45, ease: [0.16, 1, 0.3, 1] as const },
-  }),
-};
-
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<Status>("idle");
@@ -217,7 +207,6 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     <motion.div
                       key={field.id}
                       custom={i}
-                      variants={FIELD_VARIANTS}
                       initial="hidden"
                       animate="visible"
                       className="flex flex-col gap-1.5"
@@ -268,10 +257,12 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     type="submit"
                     disabled={status === "loading"}
                     custom={4}
-                    variants={FIELD_VARIANTS}
                     initial="hidden"
                     animate="visible"
-                    whileHover={{ scale: status === "loading" ? 1 : 1.02 }}
+                    whileHover={{ 
+                      y: status === "loading" ? 0 : -2,
+                      backgroundColor: status === "loading" ? "var(--accent-ghost)" : "#5B6EE8",
+                    }}
                     whileTap={{ scale: 0.98 }}
                     className="mt-2 px-6 py-3 sm:px-8 sm:py-4 rounded-lg font-mono font-medium text-sm sm:text-[0.9rem] tracking-wider flex items-center justify-center gap-2.5"
                     style={{
@@ -279,6 +270,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                       color: status === "loading" ? "var(--accent)" : "#0A0A0A",
                       border: "none",
                       pointerEvents: status === "loading" ? "none" : "auto",
+                      cursor: status === "loading" ? "not-allowed" : "pointer",
                     }}
                   >
                     {status === "loading" ? (

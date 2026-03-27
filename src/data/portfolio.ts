@@ -3,7 +3,7 @@ export const PROFILE = {
   lastName: "BROCHOT",
   title: ["Étudiant BUT Informatique", "Développeur Web", "En stage au Luxembourg"],
   bio: "Salut ! Je suis étudiant en informatique, passionné par les nouvelles technologies et le développement logiciel. J'aime concevoir des projets bien structurés et créatifs, notamment des logiciels, des jeux et des sites web. Logique et curieux, j'adore acquérir de nouvelles compétences et explorer des idées novatrices.",
-  email: "joshua.brochot@gmail.com",
+  email: "contact@jbrochot.fr",
   phone: "+33 07 68 84 93 38",
   birthdate: "2 septembre 2005",
   available: true,
@@ -13,7 +13,7 @@ export const PROFILE = {
   socials: [
     { label: "GitHub", href: "https://github.com/JoshuaBrochot" },
     { label: "LinkedIn", href: "https://www.linkedin.com/in/joshua-brochot" },
-    { label: "Email", href: "mailto:joshua.brochot@gmail.com" },
+    { label: "Email", href: "mailto:contact@jbrochot.fr" },
   ],
   stats: [
     { value: "BAC +3", label: "niveau" },
