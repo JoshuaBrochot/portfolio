@@ -1,0 +1,14 @@
+{
+  "name": "Joshua Brochot Portfolio",
+  "short_name": "JB Portfolio",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "theme_color": "#7990FF",
+  "background_color": "#0A0A0A",
+  "display": "standalone"
+}

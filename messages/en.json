@@ -1,0 +1,196 @@
+{
+  "nav": {
+    "profil": "profile",
+    "formation": "education",
+    "experiences": "experience",
+    "competences": "skills",
+    "projets": "projects",
+    "contact": "contact",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "viewProjects": "View my projects",
+    "contactMe": "Contact me",
+    "copyEmail": "Copy email",
+    "emailCopied": "Email copied to clipboard!",
+    "scroll": "scroll",
+    "bioKeywords": ["Computer Science degree", "IUT de Metz", "internship", "February 23", "June 12, 2026"]
+  },
+  "interests": {
+    "label": "About",
+    "title": "Interests"
+  },
+  "education": {
+    "label": "Background",
+    "title": "Education",
+    "current": "ongoing"
+  },
+  "experience": {
+    "label": "Career path",
+    "title": "Experience",
+    "current": "ongoing"
+  },
+  "skills": {
+    "label": "Expertise",
+    "title": "Skills",
+    "all": "All",
+    "levels": {
+      "expert": "expert",
+      "intermediate": "intermediate",
+      "beginner": "beginner"
+    },
+    "categories": {
+      "Frontend": "Frontend",
+      "Backend": "Backend",
+      "DevOps & Outils": "DevOps & Tools",
+      "Mobile & autre": "Mobile & other"
+    }
+  },
+  "projects": {
+    "label": "Achievements",
+    "title": "Projects"
+  },
+  "projectModal": {
+    "close": "Close",
+    "project": "Project",
+    "missions": "Achievements",
+    "technologies": "Technologies",
+    "team": "Team",
+    "viewProject": "View project"
+  },
+  "contact": {
+    "header": "// contact",
+    "title": "Let's work together",
+    "close": "Close contact form",
+    "name": "Name",
+    "namePlaceholder": "John Doe",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "subject": "Subject",
+    "subjectPlaceholder": "Internship proposal",
+    "message": "Message",
+    "messagePlaceholder": "Hello Joshua...",
+    "submit": "Send message",
+    "sending": "Sending...",
+    "success": "Message sent!",
+    "successMessage": "I'll get back to you soon.",
+    "error": "An error occurred.",
+    "serverError": "Unable to contact the server."
+  },
+  "preloader": {
+    "text": "_portfolio."
+  },
+  "profile": {
+    "firstName": "Joshua",
+    "lastName": "BROCHOT",
+    "title": ["Computer Science Student", "Web Developer", "Intern in Luxembourg"],
+    "bio": "Hey! I'm a computer science student passionate about new technologies and software development. I enjoy designing well-structured and creative projects, including software, games, and websites. Logical and curious, I love acquiring new skills and exploring innovative ideas.",
+    "availableLabel": "available · internship Feb–Jun 2026",
+    "stats": {
+      "niveau": "level",
+      "projets": "projects",
+      "stages": "internships"
+    }
+  },
+  "interestsData": [
+    {
+      "label": "Basketball",
+      "desc": "Team sport I practice, develops teamwork and discipline."
+    },
+    {
+      "label": "Video games",
+      "desc": "Passionate about game mechanics and game design. Source of creative inspiration."
+    },
+    {
+      "label": "New technologies",
+      "desc": "Constant tech watch: AI, web, embedded systems."
+    }
+  ],
+  "educationData": [
+    {
+      "period": "2020 – 2023",
+      "school": "Saint-Exupéry High School",
+      "degree": "High School Diploma",
+      "detail": "Mathematics & Computer Science specializations"
+    },
+    {
+      "period": "2023 – 2026",
+      "school": "IUT de Metz — University of Lorraine",
+      "degree": "Bachelor's in Computer Science",
+      "detail": "Software development track"
+    }
+  ],
+  "experiencesData": [
+    {
+      "period": "April – May 2025",
+      "company": "TMT",
+      "location": "Luxembourg",
+      "role": "R&D Internship",
+      "missions": [
+        "Development of a detection system for predictive maintenance",
+        "Processing and analysis of thermal images",
+        "Creation of an assisted calibration system"
+      ],
+      "tags": ["Python", "Computer Vision", "Image Processing"]
+    },
+    {
+      "period": "February 2026 – June 2026",
+      "company": "Paul Wurth",
+      "location": "Luxembourg",
+      "role": "IT Internship — Software Development",
+      "missions": [
+        "Complete redesign of contract and administration management software",
+        "Design and development of the user interface",
+        "Participation in architecture and tech stack decisions"
+      ],
+      "tags": ["Web Development", "Project Management", "UI/UX"]
+    }
+  ],
+  "projectsData": [
+    {
+      "id": "neuroom",
+      "number": "01",
+      "name": "NeuRoom",
+      "period": "2025 – 2026",
+      "desc": "Mobile application for visual recognition of IUT de Metz classrooms using artificial intelligence. Complete hexagonal architecture, ML pipeline, admin panel and CI/CD.",
+      "missions": [
+        "React Native + Expo mobile app (iOS & Android)",
+        "FastAPI backend (Python) with hexagonal architecture (ports & adapters)",
+        "ResNet50 deep learning model via transfer learning (PyTorch)",
+        "Creation of a dedicated dataset (IUT classroom photos)",
+        "Admin panel: MME (dynamic model management), PVA (image validation), dataset management",
+        "CI/CD GitHub Actions + VPS OVH deployment",
+        "PostgreSQL database, JWT authentication + Fernet encryption"
+      ]
+    },
+    {
+      "id": "baskick",
+      "number": "02",
+      "name": "Baskick",
+      "period": "November – December 2025",
+      "desc": "E-commerce web application built with Symfony, dedicated to selling basketball shoes. The project includes a dynamic catalog for users and a complete backoffice.",
+      "missions": [
+        "Product catalog with filters",
+        "Image gallery for each product",
+        "Paginated results",
+        "Order system with history",
+        "Shipping address management",
+        "Admin area for product management",
+        "User authentication (login, profile management)"
+      ]
+    },
+    {
+      "id": "detection-system",
+      "number": "03",
+      "name": "Thermal Detection System",
+      "period": "April – May 2025",
+      "desc": "Detection system for predictive maintenance of an industrial machine at TMT Luxembourg. Thermal image processing and assisted calibration.",
+      "missions": [
+        "Predictive maintenance for an industrial machine",
+        "Processing and analysis of thermal images",
+        "Creation of an assisted calibration system"
+      ]
+    }
+  ]
+}

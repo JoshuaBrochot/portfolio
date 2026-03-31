@@ -3,10 +3,22 @@
 import { useEffect, useRef, useState } from "react";
 import { PROJECTS } from "@/data/portfolio";
 import { ProjectModal } from "@/components/ui/ProjectModal";
+import { useLocale } from "@/context/LocaleContext";
 
 type Project = (typeof PROJECTS)[number];
 
+interface ProjectData {
+  id: string;
+  number: string;
+  name: string;
+  period: string;
+  desc: string;
+  missions: string[];
+}
+
 export function ProjectsSection() {
+  const { t, tArray } = useLocale();
+  const projectsData = tArray<ProjectData>("projectsData");
   const [isMobile, setIsMobile] = useState(true);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [visibleCards, setVisibleCards] = useState<Set<number>>(new Set());
@@ -78,18 +90,20 @@ export function ProjectsSection() {
               className="font-mono text-xs font-medium uppercase tracking-widest"
               style={{ color: "var(--accent)" }}
             >
-              Réalisations
+              {t("projects.label")}
             </span>
             <h2
               className="mt-2 font-display text-3xl font-bold"
               style={{ color: "var(--text-primary)" }}
             >
-              Projets
+              {t("projects.title")}
             </h2>
           </div>
 
           <div className="space-y-6">
-            {PROJECTS.map((project) => (
+            {PROJECTS.map((project, index) => {
+              const translatedProject = projectsData[index] || project;
+              return (
               <button
                 key={project.id}
                 onClick={() => setSelectedProject(project)}
@@ -120,21 +134,21 @@ export function ProjectsSection() {
                     className="font-mono text-xs font-medium uppercase tracking-wider"
                     style={{ color: "var(--accent)" }}
                   >
-                    {project.period}
+                    {translatedProject.period}
                   </span>
 
                   <h3
                     className="mt-2 font-display text-xl font-bold"
                     style={{ color: "var(--text-primary)" }}
                   >
-                    {project.name}
+                    {translatedProject.name}
                   </h3>
 
                   <p
                     className="mt-2 line-clamp-2 font-mono text-sm font-light"
                     style={{ color: "var(--text-muted)" }}
                   >
-                    {project.desc}
+                    {translatedProject.desc}
                   </p>
 
                   <div className="mt-4 flex flex-wrap gap-2">
@@ -164,7 +178,7 @@ export function ProjectsSection() {
                   </div>
                 </div>
               </button>
-            ))}
+            );})}
           </div>
         </div>
 
@@ -192,13 +206,13 @@ export function ProjectsSection() {
             className="font-mono text-xs font-medium uppercase tracking-widest"
             style={{ color: "var(--accent)" }}
           >
-            Réalisations
+            {t("projects.label")}
           </span>
           <h2
             className="mt-2 font-display text-4xl font-bold"
             style={{ color: "var(--text-primary)" }}
           >
-            Projets
+            {t("projects.title")}
           </h2>
         </div>
 
@@ -208,6 +222,7 @@ export function ProjectsSection() {
           style={{ overflowX: "hidden" }}
         >
           {PROJECTS.map((project, index) => {
+            const translatedProject = projectsData[index] || project;
             const isVisible = visibleCards.has(index);
             const hasAnimated = animatedCards.has(index);
             const delay = index * 120;
@@ -258,21 +273,21 @@ export function ProjectsSection() {
                         className="font-mono text-xs font-medium uppercase tracking-wider"
                         style={{ color: "var(--accent)" }}
                       >
-                        {project.period}
+                        {translatedProject.period}
                       </span>
 
                       <h3
                         className="mt-2 font-display text-2xl font-bold"
                         style={{ color: "var(--text-primary)" }}
                       >
-                        {project.name}
+                        {translatedProject.name}
                       </h3>
 
                       <p
                         className="mt-2 line-clamp-2 font-mono text-sm font-light"
                         style={{ color: "var(--text-muted)" }}
                       >
-                        {project.desc}
+                        {translatedProject.desc}
                       </p>
 
                       <div className="mt-4 flex flex-wrap gap-2">

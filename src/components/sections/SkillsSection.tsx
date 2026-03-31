@@ -4,6 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { SKILLS, SKILL_CATEGORIES, type Skill, type SkillLevel } from "@/data/portfolio";
 import { useMouseParallax } from "@/hooks/useMouseParallax";
+import { useLocale } from "@/context/LocaleContext";
 
 // Seeded random for consistent layout
 function seededRandom(seed: number) {
@@ -35,6 +36,7 @@ function getSkillStyles(level: SkillLevel) {
 }
 
 export function SkillsSection() {
+  const { t } = useLocale();
   const [activeCategory, setActiveCategory] = useState("Tout");
   const mouse = useMouseParallax({ strength: 1, smoothing: 0.05 });
   const [isMobile, setIsMobile] = useState(false);
@@ -79,19 +81,23 @@ export function SkillsSection() {
             className="font-mono text-xs font-medium uppercase tracking-widest"
             style={{ color: "var(--accent)" }}
           >
-            Expertise
+            {t("skills.label")}
           </span>
           <h2
             className="mt-2 font-display text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text-primary)" }}
           >
-            Compétences
+            {t("skills.title")}
           </h2>
         </div>
 
         {/* Category filters */}
         <div className="mb-12 flex flex-wrap justify-center gap-3">
-          {SKILL_CATEGORIES.map((category) => (
+          {SKILL_CATEGORIES.map((category) => {
+            const translatedCategory = category === "Tout"
+              ? t("skills.all")
+              : t(`skills.categories.${category}`) || category;
+            return (
             <motion.button
               key={category}
               onClick={() => setActiveCategory(category)}
@@ -111,9 +117,9 @@ export function SkillsSection() {
               }}
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
             >
-              {category}
+              {translatedCategory}
             </motion.button>
-          ))}
+          );})}
         </div>
 
         {/* Skills cloud */}
@@ -168,6 +174,7 @@ export function SkillsSection() {
         <div className="mt-12 flex flex-wrap justify-center gap-6">
           {(["expert", "intermédiaire", "débutant"] as SkillLevel[]).map((level) => {
             const styles = getSkillStyles(level);
+            const levelKey = level === "intermédiaire" ? "intermediate" : level === "débutant" ? "beginner" : "expert";
             return (
               <div key={level} className="flex items-center gap-2">
                 <div
@@ -184,7 +191,7 @@ export function SkillsSection() {
                     opacity: styles.opacity,
                   }}
                 >
-                  {level}
+                  {t(`skills.levels.${levelKey}`)}
                 </span>
               </div>
             );

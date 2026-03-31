@@ -3,13 +3,15 @@
 import { useEffect, useState } from "react";
 import type Lenis from "lenis";
 import ContactModal from "@/components/ui/ContactModal";
+import { useLocale } from "@/context/LocaleContext";
+import type { Locale } from "@/lib/i18n";
 
 const NAV_LINKS = [
-  { href: "#profil", label: "profil" },
-  { href: "#formation", label: "formation" },
-  { href: "#experiences", label: "expériences" },
-  { href: "#competences", label: "compétences" },
-  { href: "#projets", label: "projets" },
+  { href: "#profil", key: "profil" },
+  { href: "#formation", key: "formation" },
+  { href: "#experiences", key: "experiences" },
+  { href: "#competences", key: "competences" },
+  { href: "#projets", key: "projets" },
 ];
 
 export function Navbar() {
@@ -17,6 +19,7 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState<string>("profil");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
+  const { locale, setLocale, t } = useLocale();
 
   // Handle scroll background
   useEffect(() => {
@@ -116,9 +119,51 @@ export function Navbar() {
                       : "var(--text-muted)",
                 }}
               >
-                {link.label}
+                {t(`nav.${link.key}`)}
               </a>
             ))}
+
+            {/* Language Switcher */}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "2px",
+                fontFamily: "var(--font-mono)",
+                fontSize: "0.72rem",
+                letterSpacing: "0.12em",
+              }}
+            >
+              {(["fr", "en"] as Locale[]).map((l, i) => (
+                <span key={l} style={{ display: "flex", alignItems: "center" }}>
+                  <button
+                    onClick={() => setLocale(l)}
+                    style={{
+                      background: "none",
+                      border: "none",
+                      cursor: "pointer",
+                      padding: "4px 6px",
+                      borderRadius: "4px",
+                      fontFamily: "var(--font-mono)",
+                      fontSize: "0.72rem",
+                      letterSpacing: "0.12em",
+                      textTransform: "uppercase",
+                      color: locale === l ? "var(--accent)" : "var(--text-muted)",
+                      fontWeight: locale === l ? 500 : 300,
+                      transition: "color 0.2s",
+                    }}
+                    aria-label={`Switch to ${l.toUpperCase()}`}
+                  >
+                    {l.toUpperCase()}
+                  </button>
+                  {i === 0 && (
+                    <span style={{ color: "var(--text-subtle)", fontSize: "0.65rem" }}>
+                      /
+                    </span>
+                  )}
+                </span>
+              ))}
+            </div>
 
             {/* CTA Contact */}
             <button
@@ -132,13 +177,13 @@ export function Navbar() {
                 background: "none",
               }}
             >
-              contact
+              {t("nav.contact")}
             </button>
           </div>
 
           {/* Mobile Burger */}
           <button
-            aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+            aria-label={isMobileMenuOpen ? t("nav.closeMenu") : t("nav.openMenu")}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             className="md:hidden"
             style={{
@@ -240,9 +285,53 @@ export function Navbar() {
                 : 'opacity 0.2s ease, transform 0.2s ease',
             }}
           >
-            {link.label.toUpperCase()}
+            {t(`nav.${link.key}`).toUpperCase()}
           </a>
         ))}
+
+        {/* Language Switcher Mobile */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            opacity: isMobileMenuOpen ? 1 : 0,
+            transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-16px)',
+            transition: isMobileMenuOpen
+              ? `opacity 0.4s ease ${NAV_LINKS.length * 60 + 120}ms, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${NAV_LINKS.length * 60 + 120}ms`
+              : 'opacity 0.2s ease, transform 0.2s ease',
+          }}
+        >
+          {(["fr", "en"] as Locale[]).map((l, i) => (
+            <span key={l} style={{ display: "flex", alignItems: "center" }}>
+              <button
+                onClick={() => setLocale(l)}
+                style={{
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "8px 12px",
+                  borderRadius: "4px",
+                  fontFamily: "var(--font-mono)",
+                  fontSize: "1rem",
+                  letterSpacing: "0.12em",
+                  textTransform: "uppercase",
+                  color: locale === l ? "var(--accent)" : "var(--text-muted)",
+                  fontWeight: locale === l ? 500 : 300,
+                  transition: "color 0.2s",
+                }}
+                aria-label={`Switch to ${l.toUpperCase()}`}
+              >
+                {l.toUpperCase()}
+              </button>
+              {i === 0 && (
+                <span style={{ color: "var(--text-subtle)", fontSize: "0.85rem" }}>
+                  /
+                </span>
+              )}
+            </span>
+          ))}
+        </div>
 
         <button
           onClick={() => {
@@ -260,13 +349,13 @@ export function Navbar() {
             opacity: isMobileMenuOpen ? 1 : 0,
             transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-16px)',
             transition: isMobileMenuOpen
-              ? `opacity 0.4s ease ${NAV_LINKS.length * 60 + 150}ms, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${NAV_LINKS.length * 60 + 150}ms`
+              ? `opacity 0.4s ease ${NAV_LINKS.length * 60 + 200}ms, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${NAV_LINKS.length * 60 + 200}ms`
               : 'opacity 0.2s ease, transform 0.2s ease',
             background: 'none',
             border: 'none',
           }}
         >
-          CONTACT
+          {t("nav.contact").toUpperCase()}
         </button>
       </div>
 

@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Dribbble, Gamepad2, Cpu, type LucideIcon } from "lucide-react";
 import { INTERESTS } from "@/data/portfolio";
+import { useLocale } from "@/context/LocaleContext";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   dribbble: Dribbble,
@@ -10,7 +11,14 @@ const ICON_MAP: Record<string, LucideIcon> = {
   cpu: Cpu,
 };
 
+interface InterestData {
+  label: string;
+  desc: string;
+}
+
 export function InterestsSection() {
+  const { t, tArray } = useLocale();
+  const interestsData = tArray<InterestData>("interestsData");
   const sectionRef = useRef<HTMLElement>(null);
   const [columnOffsets, setColumnOffsets] = useState([0, 0, 0]);
   const [isMobile, setIsMobile] = useState(false);
@@ -99,13 +107,13 @@ export function InterestsSection() {
             className="font-mono text-xs font-medium uppercase tracking-widest"
             style={{ color: "var(--accent)" }}
           >
-            À propos
+            {t("interests.label")}
           </span>
           <h2
             className="mt-2 font-display text-3xl font-bold md:text-4xl"
             style={{ color: "var(--text-primary)" }}
           >
-            Centres d&apos;intérêt
+            {t("interests.title")}
           </h2>
         </div>
 
@@ -113,6 +121,7 @@ export function InterestsSection() {
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
           {INTERESTS.map((interest, index) => {
             const Icon = ICON_MAP[interest.icon];
+            const translatedInterest = interestsData[index] || { label: interest.label, desc: interest.desc };
 
             return (
               <div
@@ -142,7 +151,7 @@ export function InterestsSection() {
                       className="font-display text-lg font-bold"
                       style={{ color: "var(--text-primary)" }}
                     >
-                      {interest.label}
+                      {translatedInterest.label}
                     </h3>
                   </div>
 
@@ -152,7 +161,7 @@ export function InterestsSection() {
                       className="text-center font-mono text-[18px] leading-relaxed"
                       style={{ color: "var(--text-muted)" }}
                     >
-                      {interest.desc}
+                      {translatedInterest.desc}
                     </p>
                   </div>
 
@@ -169,13 +178,13 @@ export function InterestsSection() {
                       className="font-display text-lg font-bold text-center"
                       style={{ color: "var(--text-primary)" }}
                     >
-                      {interest.label}
+                      {translatedInterest.label}
                     </h3>
                     <p
                       className="text-center font-mono text-sm leading-relaxed"
                       style={{ color: "var(--text-muted)" }}
                     >
-                      {interest.desc}
+                      {translatedInterest.desc}
                     </p>
                   </div>
                 </div>

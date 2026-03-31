@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocale } from "@/context/LocaleContext";
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -30,6 +31,7 @@ const PANEL_VARIANTS = {
 };
 
 export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
+  const { t } = useLocale();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [status, setStatus] = useState<Status>("idle");
   const [errorMsg, setErrorMsg] = useState("");
@@ -79,7 +81,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       const data = await res.json();
 
       if (!res.ok) {
-        setErrorMsg(data.error || "Une erreur est survenue.");
+        setErrorMsg(data.error || t("contact.error"));
         setStatus("error");
         return;
       }
@@ -93,16 +95,16 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
         setTimeout(() => setStatus("idle"), 600);
       }, 2200);
     } catch {
-      setErrorMsg("Impossible de contacter le serveur.");
+      setErrorMsg(t("contact.serverError"));
       setStatus("error");
     }
   }
 
   const fields = [
-    { id: "name",    label: "Nom",     type: "input",    inputType: "text",  placeholder: "John Doe" },
-    { id: "email",   label: "Email",   type: "input",    inputType: "email", placeholder: "vous@exemple.fr" },
-    { id: "subject", label: "Sujet",   type: "input",    inputType: "text",  placeholder: "Proposition de stage" },
-    { id: "message", label: "Message", type: "textarea", inputType: "",      placeholder: "Bonjour Joshua..." },
+    { id: "name",    label: t("contact.name"),    type: "input",    inputType: "text",  placeholder: t("contact.namePlaceholder") },
+    { id: "email",   label: t("contact.email"),   type: "input",    inputType: "email", placeholder: t("contact.emailPlaceholder") },
+    { id: "subject", label: t("contact.subject"), type: "input",    inputType: "text",  placeholder: t("contact.subjectPlaceholder") },
+    { id: "message", label: t("contact.message"), type: "textarea", inputType: "",      placeholder: t("contact.messagePlaceholder") },
   ] as const;
 
   return (
@@ -147,17 +149,17 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
             <div className="flex justify-between items-start mb-6 sm:mb-8">
               <div>
                 <p className="font-mono text-[10px] sm:text-[11px] tracking-widest uppercase text-[var(--accent)] mb-1.5">
-                  // contact
+                  {t("contact.header")}
                 </p>
                 <h2 className="font-display font-extrabold text-2xl sm:text-3xl md:text-[2.2rem] text-[var(--text-primary)] leading-tight">
-                  Travaillons ensemble
+                  {t("contact.title")}
                 </h2>
               </div>
 
               {/* Bouton fermer */}
               <button
                 onClick={onClose}
-                aria-label="Fermer le formulaire de contact"
+                aria-label={t("contact.close")}
                 className="bg-transparent border border-[var(--accent-border)] rounded-full w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center flex-shrink-0 text-[var(--text-muted)] transition-all duration-200 hover:border-[var(--accent)] hover:text-[var(--accent)]"
               >
                 {/* Croix SVG */}
@@ -190,10 +192,10 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                     </svg>
                   </div>
                   <p className="font-display font-extrabold text-xl sm:text-2xl text-[var(--text-primary)] mb-2">
-                    Message envoyé !
+                    {t("contact.success")}
                   </p>
                   <p className="font-mono text-xs sm:text-[0.85rem] text-[var(--text-muted)]">
-                    Je reviendrai vers toi rapidement.
+                    {t("contact.successMessage")}
                   </p>
                 </motion.div>
               ) : (
@@ -292,11 +294,11 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
                             strokeLinecap="round"
                           />
                         </svg>
-                        Envoi en cours...
+                        {t("contact.sending")}
                       </>
                     ) : (
                       <>
-                        Envoyer le message
+                        {t("contact.submit")}
                         <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                           <path
                             d="M1 7H13M8 2L13 7L8 12"

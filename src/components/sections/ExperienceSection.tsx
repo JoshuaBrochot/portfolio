@@ -4,8 +4,20 @@ import { useEffect, useRef, useState, useCallback } from "react";
 import { MapPin } from "lucide-react";
 import { EXPERIENCES } from "@/data/portfolio";
 import { useScrollRAF } from "@/hooks/useScrollRAF";
+import { useLocale } from "@/context/LocaleContext";
+
+interface ExperienceData {
+  period: string;
+  company: string;
+  location: string;
+  role: string;
+  missions: string[];
+  tags: string[];
+}
 
 export function ExperienceSection() {
+  const { t, tArray } = useLocale();
+  const experiencesData = tArray<ExperienceData>("experiencesData");
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [visibleItems, setVisibleItems] = useState<boolean[]>(EXPERIENCES.map(() => false));
@@ -50,19 +62,21 @@ export function ExperienceSection() {
               className="font-mono text-xs font-medium uppercase tracking-widest"
               style={{ color: "var(--accent)" }}
             >
-              Parcours professionnel
+              {t("experience.label")}
             </span>
             <h2
               className="mt-2 font-display text-3xl font-bold"
               style={{ color: "var(--text-primary)" }}
             >
-              Expériences
+              {t("experience.title")}
             </h2>
           </div>
 
           <div className="relative">
             {/* Timeline line */}
-            {EXPERIENCES.map((exp, index) => (
+            {EXPERIENCES.map((exp, index) => {
+              const translatedExp = experiencesData[index] || exp;
+              return (
               <div key={index} className="relative mb-8 last:mb-0">
                 {/* Card */}
                 <div
@@ -78,7 +92,7 @@ export function ExperienceSection() {
                       className="font-mono text-xs font-medium uppercase tracking-wider"
                       style={{ color: "var(--accent)" }}
                     >
-                      {exp.period}
+                      {translatedExp.period}
                     </span>
                     {exp.current && (
                       <span
@@ -89,7 +103,7 @@ export function ExperienceSection() {
                         }}
                       >
                         <span className="pulse-dot h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
-                        en cours
+                        {t("experience.current")}
                       </span>
                     )}
                   </div>
@@ -99,7 +113,7 @@ export function ExperienceSection() {
                     className="mt-2 font-display text-lg font-bold"
                     style={{ color: "var(--text-primary)" }}
                   >
-                    {exp.company}
+                    {translatedExp.company}
                   </h3>
 
                   {/* Location */}
@@ -109,7 +123,7 @@ export function ExperienceSection() {
                       className="font-mono text-xs"
                       style={{ color: "var(--text-subtle)" }}
                     >
-                      {exp.location}
+                      {translatedExp.location}
                     </span>
                   </div>
 
@@ -118,12 +132,12 @@ export function ExperienceSection() {
                     className="mt-2 font-mono text-sm font-medium"
                     style={{ color: "var(--text-muted)" }}
                   >
-                    {exp.role}
+                    {translatedExp.role}
                   </p>
 
                   {/* Missions */}
                   <ul className="mt-4 space-y-2">
-                    {exp.missions.map((mission, mIndex) => (
+                    {translatedExp.missions.map((mission, mIndex) => (
                       <li
                         key={mIndex}
                         className="flex items-start gap-2 font-mono text-sm font-light"
@@ -137,7 +151,7 @@ export function ExperienceSection() {
 
                   {/* Tags */}
                   <div className="mt-4 flex flex-wrap gap-2">
-                    {exp.tags.map((tag) => (
+                    {translatedExp.tags.map((tag) => (
                       <span
                         key={tag}
                         className="rounded px-2 py-1 font-mono text-[10px] uppercase tracking-wider"
@@ -153,7 +167,7 @@ export function ExperienceSection() {
                   </div>
                 </div>
               </div>
-            ))}
+            );})}
           </div>
         </div>
       </section>
@@ -179,13 +193,13 @@ export function ExperienceSection() {
                 className="font-mono text-xs font-medium uppercase tracking-widest"
                 style={{ color: "var(--accent)" }}
               >
-                Parcours professionnel
+                {t("experience.label")}
               </span>
               <h2
                 className="mt-2 font-display text-4xl font-bold"
                 style={{ color: "var(--text-primary)" }}
               >
-                Expériences
+                {t("experience.title")}
               </h2>
             </div>
 
@@ -219,7 +233,9 @@ export function ExperienceSection() {
 
               {/* Timeline items */}
               <div className="relative space-y-12 pl-20">
-                {EXPERIENCES.map((exp, index) => (
+                {EXPERIENCES.map((exp, index) => {
+                  const translatedExp = experiencesData[index] || exp;
+                  return (
                   <div
                     key={index}
                     className={`relative ${index % 2 === 0 ? "slide-from-left" : "slide-from-right"} ${
@@ -254,7 +270,7 @@ export function ExperienceSection() {
                           className="font-mono text-xs font-medium uppercase tracking-wider"
                           style={{ color: "var(--accent)" }}
                         >
-                          {exp.period}
+                          {translatedExp.period}
                         </span>
                         {exp.current && (
                           <span
@@ -265,7 +281,7 @@ export function ExperienceSection() {
                             }}
                           >
                             <span className="pulse-dot h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
-                            en cours
+                            {t("experience.current")}
                           </span>
                         )}
                       </div>
@@ -276,7 +292,7 @@ export function ExperienceSection() {
                           className="font-display text-xl font-bold"
                           style={{ color: "var(--text-primary)" }}
                         >
-                          {exp.company}
+                          {translatedExp.company}
                         </h3>
                         <div className="flex items-center gap-1">
                           <MapPin size={12} style={{ color: "var(--text-subtle)" }} />
@@ -284,7 +300,7 @@ export function ExperienceSection() {
                             className="font-mono text-xs"
                             style={{ color: "var(--text-subtle)" }}
                           >
-                            {exp.location}
+                            {translatedExp.location}
                           </span>
                         </div>
                       </div>
@@ -294,12 +310,12 @@ export function ExperienceSection() {
                         className="mt-1 font-mono text-sm font-medium"
                         style={{ color: "var(--text-muted)" }}
                       >
-                        {exp.role}
+                        {translatedExp.role}
                       </p>
 
                       {/* Missions */}
                       <ul className="mt-4 space-y-2">
-                        {exp.missions.map((mission, mIndex) => (
+                        {translatedExp.missions.map((mission, mIndex) => (
                           <li
                             key={mIndex}
                             className="flex items-start gap-2 font-mono text-sm font-light"
@@ -313,7 +329,7 @@ export function ExperienceSection() {
 
                       {/* Tags */}
                       <div className="mt-4 flex flex-wrap gap-2">
-                        {exp.tags.map((tag) => (
+                        {translatedExp.tags.map((tag) => (
                           <span
                             key={tag}
                             className="rounded px-2 py-1 font-mono text-[10px] uppercase tracking-wider"
@@ -329,7 +345,7 @@ export function ExperienceSection() {
                       </div>
                     </div>
                   </div>
-                ))}
+                );})}
               </div>
             </div>
           </div>

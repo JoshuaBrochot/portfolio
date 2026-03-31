@@ -1,0 +1,196 @@
+{
+  "nav": {
+    "profil": "profil",
+    "formation": "formation",
+    "experiences": "expériences",
+    "competences": "compétences",
+    "projets": "projets",
+    "contact": "contact",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu"
+  },
+  "hero": {
+    "viewProjects": "Voir mes projets",
+    "contactMe": "Me contacter",
+    "copyEmail": "Copier l'email",
+    "emailCopied": "Mail copié dans le presse-papier !",
+    "scroll": "scroll",
+    "bioKeywords": ["BUT Informatique", "IUT de Metz", "stage", "23 février", "12 juin 2026"]
+  },
+  "interests": {
+    "label": "À propos",
+    "title": "Centres d'intérêt"
+  },
+  "education": {
+    "label": "Parcours",
+    "title": "Formation",
+    "current": "en cours"
+  },
+  "experience": {
+    "label": "Parcours professionnel",
+    "title": "Expériences",
+    "current": "en cours"
+  },
+  "skills": {
+    "label": "Expertise",
+    "title": "Compétences",
+    "all": "Tout",
+    "levels": {
+      "expert": "expert",
+      "intermediate": "intermédiaire",
+      "beginner": "débutant"
+    },
+    "categories": {
+      "Frontend": "Frontend",
+      "Backend": "Backend",
+      "DevOps & Outils": "DevOps & Outils",
+      "Mobile & autre": "Mobile & autre"
+    }
+  },
+  "projects": {
+    "label": "Réalisations",
+    "title": "Projets"
+  },
+  "projectModal": {
+    "close": "Fermer",
+    "project": "Projet",
+    "missions": "Réalisations",
+    "technologies": "Technologies",
+    "team": "Équipe",
+    "viewProject": "Voir le projet"
+  },
+  "contact": {
+    "header": "// contact",
+    "title": "Travaillons ensemble",
+    "close": "Fermer le formulaire de contact",
+    "name": "Nom",
+    "namePlaceholder": "John Doe",
+    "email": "Email",
+    "emailPlaceholder": "vous@exemple.fr",
+    "subject": "Sujet",
+    "subjectPlaceholder": "Proposition de stage",
+    "message": "Message",
+    "messagePlaceholder": "Bonjour Joshua...",
+    "submit": "Envoyer le message",
+    "sending": "Envoi en cours...",
+    "success": "Message envoyé !",
+    "successMessage": "Je reviendrai vers toi rapidement.",
+    "error": "Une erreur est survenue.",
+    "serverError": "Impossible de contacter le serveur."
+  },
+  "preloader": {
+    "text": "_portfolio."
+  },
+  "profile": {
+    "firstName": "Joshua",
+    "lastName": "BROCHOT",
+    "title": ["Étudiant BUT Informatique", "Développeur Web", "En stage au Luxembourg"],
+    "bio": "Salut ! Je suis étudiant en informatique, passionné par les nouvelles technologies et le développement logiciel. J'aime concevoir des projets bien structurés et créatifs, notamment des logiciels, des jeux et des sites web. Logique et curieux, j'adore acquérir de nouvelles compétences et explorer des idées novatrices.",
+    "availableLabel": "disponible · stage fév–juin 2026",
+    "stats": {
+      "niveau": "niveau",
+      "projets": "projets",
+      "stages": "stages"
+    }
+  },
+  "interestsData": [
+    {
+      "label": "Basketball",
+      "desc": "Sport collectif pratiqué, développe l'esprit d'équipe et la rigueur."
+    },
+    {
+      "label": "Jeux vidéo",
+      "desc": "Passionné par les mécaniques de jeu et le game design. Source d'inspiration créative."
+    },
+    {
+      "label": "Nouvelles technologies",
+      "desc": "Veille tech constante : IA, web, systèmes embarqués."
+    }
+  ],
+  "educationData": [
+    {
+      "period": "2020 – 2023",
+      "school": "Lycée Saint-Exupéry",
+      "degree": "BAC général",
+      "detail": "Spécialités Mathématiques & NSI"
+    },
+    {
+      "period": "2023 – 2026",
+      "school": "IUT de Metz — Université de Lorraine",
+      "degree": "BUT 3 Informatique",
+      "detail": "Parcours développement logiciel"
+    }
+  ],
+  "experiencesData": [
+    {
+      "period": "Avril – Mai 2025",
+      "company": "TMT",
+      "location": "Luxembourg",
+      "role": "Stage R&D",
+      "missions": [
+        "Développement d'un système de détection pour maintenance prédictive",
+        "Traitement et analyse d'images thermiques",
+        "Création d'un système de calibration assistée"
+      ],
+      "tags": ["Python", "Computer Vision", "Traitement d'image"]
+    },
+    {
+      "period": "Février 2026 – Juin 2026",
+      "company": "Paul Wurth",
+      "location": "Luxembourg",
+      "role": "Stage IT — Développement logiciel",
+      "missions": [
+        "Refonte complète d'un logiciel de gestion de contrats et d'administration",
+        "Conception et développement de l'interface utilisateur",
+        "Participation aux choix d'architecture et de stack technique"
+      ],
+      "tags": ["Développement web", "Gestion de projet", "UI/UX"]
+    }
+  ],
+  "projectsData": [
+    {
+      "id": "neuroom",
+      "number": "01",
+      "name": "NeuRoom",
+      "period": "2025 – 2026",
+      "desc": "Application mobile de reconnaissance visuelle des salles de l'IUT de Metz par intelligence artificielle. Architecture hexagonale complète, pipeline ML, panel d'administration et CI/CD.",
+      "missions": [
+        "Application mobile React Native + Expo (iOS & Android)",
+        "Backend FastAPI (Python) avec architecture hexagonale (ports & adapters)",
+        "Modèle de deep learning ResNet50 via transfer learning (PyTorch)",
+        "Constitution d'un dataset dédié (photos des salles IUT)",
+        "Panel d'administration : MME (gestion dynamique des modèles), PVA (validation images), gestion dataset",
+        "CI/CD GitHub Actions + déploiement VPS OVH",
+        "Base de données PostgreSQL, authentification JWT + chiffrement Fernet"
+      ]
+    },
+    {
+      "id": "baskick",
+      "number": "02",
+      "name": "Baskick",
+      "period": "Novembre – Décembre 2025",
+      "desc": "Application web e-commerce développée avec Symfony, dédiée à la vente de chaussures de basketball. Le projet intègre un catalogue dynamique pour les utilisateurs et un backoffice complet.",
+      "missions": [
+        "Catalogue de produits avec filtres",
+        "Galerie d'images pour chaque produit",
+        "Pagination des résultats",
+        "Système de commandes avec historique",
+        "Gestion des adresses de livraison",
+        "Espace administration pour la gestion des produits",
+        "Authentification utilisateur (connexion, gestion de profil)"
+      ]
+    },
+    {
+      "id": "detection-system",
+      "number": "03",
+      "name": "Système de détection thermique",
+      "period": "Avril – Mai 2025",
+      "desc": "Système de détection pour la maintenance prédictive d'une machine industrielle chez TMT Luxembourg. Traitement d'images thermiques et calibration assistée.",
+      "missions": [
+        "Maintenance prédictive d'une machine industrielle",
+        "Traitement et analyse d'images thermiques",
+        "Création d'un système de calibration assistée"
+      ]
+    }
+  ]
+}

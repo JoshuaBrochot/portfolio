@@ -5,6 +5,7 @@ import { ArrowDown, Github, Linkedin, Mail, type LucideIcon } from "lucide-react
 import { PROFILE } from "@/data/portfolio";
 import ContactModal from "@/components/ui/ContactModal";
 import { Toast } from "@/components/ui/Toast";
+import { useLocale } from "@/context/LocaleContext";
 
 const ICON_MAP: Record<string, LucideIcon> = {
   GitHub: Github,
@@ -13,6 +14,8 @@ const ICON_MAP: Record<string, LucideIcon> = {
 };
 
 export function HeroSection() {
+  const { t, tArray } = useLocale();
+  const titles = tArray<string>("profile.title");
   const [titleIndex, setTitleIndex] = useState(0);
   const [displayText, setDisplayText] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
@@ -38,11 +41,11 @@ export function HeroSection() {
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (prefersReducedMotion) {
-      setDisplayText(PROFILE.title[0]);
+      setDisplayText(titles[0] || "");
       return;
     }
 
-    const currentTitle = PROFILE.title[titleIndex];
+    const currentTitle = titles[titleIndex] || "";
     const typeSpeed = isDeleting ? 30 : 80;
 
     const timeout = setTimeout(() => {
@@ -57,13 +60,13 @@ export function HeroSection() {
           setDisplayText(displayText.slice(0, -1));
         } else {
           setIsDeleting(false);
-          setTitleIndex((prev) => (prev + 1) % PROFILE.title.length);
+          setTitleIndex((prev) => (prev + 1) % titles.length);
         }
       }
     }, typeSpeed);
 
     return () => clearTimeout(timeout);
-  }, [displayText, isDeleting, titleIndex]);
+  }, [displayText, isDeleting, titleIndex, titles]);
 
   // Parallax grid effect
   useEffect(() => {
@@ -83,7 +86,7 @@ export function HeroSection() {
 
   // Highlight keywords in bio
   const highlightBio = (text: string) => {
-    const keywords = ["BUT Informatique", "IUT de Metz", "stage", "23 février", "12 juin 2026"];
+    const keywords = tArray<string>("hero.bioKeywords");
     let result = text;
 
     keywords.forEach((keyword) => {
@@ -139,7 +142,7 @@ export function HeroSection() {
                 className="font-mono text-xs font-medium uppercase tracking-wider"
                 style={{ color: "var(--accent)" }}
               >
-                {PROFILE.availableLabel}
+                {t("profile.availableLabel")}
               </span>
             </div>
           )}
@@ -170,20 +173,20 @@ export function HeroSection() {
           <p
             className="mt-6 max-w-xl font-mono text-base font-light leading-relaxed"
             style={{ color: "var(--text-muted)" }}
-            dangerouslySetInnerHTML={{ __html: highlightBio(PROFILE.bio) }}
+            dangerouslySetInnerHTML={{ __html: highlightBio(t("profile.bio")) }}
           />
 
           {/* Buttons */}
           <div className="mt-8 flex flex-wrap gap-4">
             <a href="#projets" className="btn-primary">
-              Voir mes projets
+              {t("hero.viewProjects")}
               <ArrowDown size={16} />
             </a>
             <button
               onClick={() => setContactOpen(true)}
               className="btn-outline"
             >
-              Me contacter
+              {t("hero.contactMe")}
             </button>
           </div>
 
@@ -203,7 +206,7 @@ export function HeroSection() {
                       border: "1px solid var(--border)",
                     }}
                     aria-label={social.label}
-                    title="Copier l'email"
+                    title={t("hero.copyEmail")}
                   >
                     {Icon && <Icon size={18} color="var(--text-muted)" />}
                   </button>
@@ -298,7 +301,7 @@ export function HeroSection() {
                   className="font-mono text-xs uppercase tracking-wider"
                   style={{ color: "var(--text-muted)" }}
                 >
-                  {stat.label}
+                  {t(`profile.stats.${stat.label}`)}
                 </span>
               </div>
             ))}
@@ -316,14 +319,14 @@ export function HeroSection() {
           className="font-mono text-[10px] uppercase tracking-widest"
           style={{ color: "var(--text-subtle)" }}
         >
-          scroll
+          {t("hero.scroll")}
         </span>
       </div>
 
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />
       <Toast
         isOpen={showToast}
-        message="Mail copié dans le presse-papier !"
+        message={t("hero.emailCopied")}
         duration={2000}
         onClose={handleCloseToast}
       />
