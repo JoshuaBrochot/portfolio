@@ -3,8 +3,18 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import { EDUCATION } from "@/data/portfolio";
 import { useScrollRAF } from "@/hooks/useScrollRAF";
+import { useLocale } from "@/context/LocaleContext";
+
+interface EducationData {
+  period: string;
+  school: string;
+  degree: string;
+  detail: string;
+}
 
 export function EducationSection() {
+  const { t, tArray } = useLocale();
+  const educationData = tArray<EducationData>("educationData");
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMobile, setIsMobile] = useState(false);
   const [visibleItems, setVisibleItems] = useState<boolean[]>(EDUCATION.map(() => false));
@@ -49,20 +59,22 @@ export function EducationSection() {
               className="font-mono text-xs font-medium uppercase tracking-widest"
               style={{ color: "var(--accent)" }}
             >
-              Parcours
+              {t("education.label")}
             </span>
             <h2
               className="mt-2 font-display text-3xl font-bold"
               style={{ color: "var(--text-primary)" }}
             >
-              Formation
+              {t("education.title")}
             </h2>
           </div>
 
           <div className="relative">
             {/* Timeline line */}
 
-            {EDUCATION.map((item, index) => (
+            {EDUCATION.map((item, index) => {
+              const translatedItem = educationData[index] || item;
+              return (
               <div key={index} className="relative mb-8 last:mb-0">
 
                 {/* Card */}
@@ -79,7 +91,7 @@ export function EducationSection() {
                       className="font-mono text-xs font-medium uppercase tracking-wider"
                       style={{ color: "var(--accent)" }}
                     >
-                      {item.period}
+                      {translatedItem.period}
                     </span>
                     {item.current && (
                       <span
@@ -90,32 +102,32 @@ export function EducationSection() {
                         }}
                       >
                         <span className="pulse-dot h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
-                        en cours
+                        {t("education.current")}
                       </span>
                     )}
                   </div>
-                  
+
                   <h3
                     className="mt-2 font-display text-lg font-bold"
                     style={{ color: "var(--text-primary)" }}
                   >
-                    {item.degree}
+                    {translatedItem.degree}
                   </h3>
                   <p
                     className="mt-1 font-mono text-sm"
                     style={{ color: "var(--text-muted)" }}
                   >
-                    {item.school}
+                    {translatedItem.school}
                   </p>
                   <p
                     className="mt-2 font-mono text-sm font-light"
                     style={{ color: "var(--text-subtle)" }}
                   >
-                    {item.detail}
+                    {translatedItem.detail}
                   </p>
                 </div>
               </div>
-            ))}
+            );})}
           </div>
         </div>
       </section>
@@ -141,13 +153,13 @@ export function EducationSection() {
                 className="font-mono text-xs font-medium uppercase tracking-widest"
                 style={{ color: "var(--accent)" }}
               >
-                Parcours
+                {t("education.label")}
               </span>
               <h2
                 className="mt-2 font-display text-4xl font-bold"
                 style={{ color: "var(--text-primary)" }}
               >
-                Formation
+                {t("education.title")}
               </h2>
             </div>
 
@@ -181,7 +193,9 @@ export function EducationSection() {
 
               {/* Timeline items */}
               <div className="relative space-y-16 pl-20">
-                {EDUCATION.map((item, index) => (
+                {EDUCATION.map((item, index) => {
+                  const translatedItem = educationData[index] || item;
+                  return (
                   <div
                     key={index}
                     className={`relative ${index % 2 === 0 ? "slide-from-left" : "slide-from-right"} ${
@@ -216,7 +230,7 @@ export function EducationSection() {
                           className="font-mono text-xs font-medium uppercase tracking-wider"
                           style={{ color: "var(--accent)" }}
                         >
-                          {item.period}
+                          {translatedItem.period}
                         </span>
                         {item.current && (
                           <span
@@ -227,7 +241,7 @@ export function EducationSection() {
                             }}
                           >
                             <span className="pulse-dot h-1.5 w-1.5 rounded-full" style={{ backgroundColor: "var(--accent)" }} />
-                            en cours
+                            {t("education.current")}
                           </span>
                         )}
                       </div>
@@ -235,23 +249,23 @@ export function EducationSection() {
                         className="mt-2 font-display text-xl font-bold"
                         style={{ color: "var(--text-primary)" }}
                       >
-                        {item.degree}
+                        {translatedItem.degree}
                       </h3>
                       <p
                         className="mt-1 font-mono text-sm"
                         style={{ color: "var(--text-muted)" }}
                       >
-                        {item.school}
+                        {translatedItem.school}
                       </p>
                       <p
                         className="mt-2 font-mono text-sm font-light"
                         style={{ color: "var(--text-subtle)" }}
                       >
-                        {item.detail}
+                        {translatedItem.detail}
                       </p>
                     </div>
                   </div>
-                ))}
+                );})}
               </div>
             </div>
           </div>

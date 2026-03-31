@@ -4,6 +4,7 @@ import "./globals.css";
 import { SmoothScrollProvider } from "@/components/ui/SmoothScrollProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Preloader } from "@/components/ui/Preloader";
+import { LocaleProvider } from "@/context/LocaleContext";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -20,9 +21,10 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Joshua BROCHOT | Portfolio",
+  title: "Joshua Brochot — Portfolio",
   description:
-    "Étudiant en BUT Informatique à l'IUT de Metz, développeur web, actuellement en stage.",
+    "Étudiant BUT3 Informatique à l'IUT de Metz, disponible en stage de février à juin 2026. Spécialisé React, Next.js, TypeScript, Python et SQL.",
+  metadataBase: new URL("https://jbrochot.fr"),
   keywords: [
     "Joshua Brochot",
     "développeur",
@@ -30,14 +32,33 @@ export const metadata: Metadata = {
     "BUT Informatique",
     "stage",
     "développeur web",
+    "React",
+    "Next.js",
+    "TypeScript",
+    "Python",
+    "SQL",
   ],
   authors: [{ name: "Joshua Brochot" }],
   openGraph: {
-    title: "Joshua BROCHOT | Portfolio",
-    description:
-      "Étudiant en BUT Informatique à l'IUT de Metz, développeur web, actuellement en stage.",
-    type: "website",
+    title: "Joshua Brochot — Portfolio",
+    description: "Étudiant BUT3 Informatique · Disponible en stage fév–juin 2026",
+    url: "https://jbrochot.fr",
+    siteName: "Portfolio Joshua Brochot",
     locale: "fr_FR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Joshua Brochot — Portfolio",
+    description: "Étudiant BUT3 Informatique · Disponible en stage fév–juin 2026",
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.png" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
   },
 };
 
@@ -49,11 +70,13 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${syne.variable} ${ibmPlexMono.variable} antialiased`}>
-        <Preloader />
-        <SmoothScrollProvider>
-          <Navbar />
-          {children}
-        </SmoothScrollProvider>
+        <LocaleProvider>
+          <Preloader />
+          <SmoothScrollProvider>
+            <Navbar />
+            {children}
+          </SmoothScrollProvider>
+        </LocaleProvider>
       </body>
     </html>
   );
