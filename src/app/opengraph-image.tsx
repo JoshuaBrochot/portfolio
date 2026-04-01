@@ -5,6 +5,26 @@ export const alt = "Joshua Brochot — Portfolio développeur";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
+async function loadFontData() {
+  // First try the module-resolved URL (works when bundler rewrites it).
+  try {
+    const url = new URL("../../public/fonts/RubikMonoOne-Regular.ttf", import.meta.url);
+    const res = await fetch(url.toString());
+    if (res.ok) return await res.arrayBuffer();
+  } catch (err) {
+    // continue to fallback
+  }
+
+  // Fallback to an absolute URL. Set NEXT_PUBLIC_SITE_URL in production.
+  const origin = (process.env.NEXT_PUBLIC_SITE_URL && process.env.NEXT_PUBLIC_SITE_URL.startsWith('http'))
+    ? process.env.NEXT_PUBLIC_SITE_URL
+    : `http://${process.env.NEXT_PUBLIC_SITE_URL ?? 'localhost:3000'}`;
+  const fallbackUrl = `${origin.replace(/\/$/, '')}/fonts/RubikMonoOne-Regular.ttf`;
+  const res = await fetch(fallbackUrl);
+  if (!res.ok) throw new Error(`Failed to load font from ${fallbackUrl}`);
+  return await res.arrayBuffer();
+}
+
 export default async function Image() {
   return new ImageResponse(
     (
@@ -19,7 +39,6 @@ export default async function Image() {
           justifyContent: "center",
           padding: "80px 100px",
           position: "relative",
-          fontFamily: "sans-serif",
           overflow: "hidden",
         }}
       >
@@ -38,13 +57,13 @@ export default async function Image() {
         <div
           style={{
             position: "absolute",
-            top: "-100px",
-            right: "-100px",
-            width: "500px",
-            height: "500px",
+            top: "-150px",
+            right: "-150px",
+            width: "600px",
+            height: "600px",
             borderRadius: "50%",
             background:
-              "radial-gradient(circle, rgba(121,144,255,0.18) 0%, transparent 70%)",
+              "radial-gradient(circle, rgba(121,144,255,0.17) 0%, transparent 65%)",
           }}
         />
 
@@ -84,7 +103,6 @@ export default async function Image() {
             />
             <span
               style={{
-                fontFamily: "monospace",
                 fontSize: "18px",
                 color: "#7990FF",
                 letterSpacing: "3px",
@@ -126,19 +144,18 @@ export default async function Image() {
           {/* Sous-titre */}
           <div
             style={{
-              fontSize: "26px",
+              fontSize: "24px",
               color: "#A0A0A0",
-              fontFamily: "monospace",
               letterSpacing: "1px",
               marginBottom: "48px",
             }}
           >
-            Étudiant BUT3 Informatique · IUT de Metz
+            Junior Developer 
           </div>
 
           {/* Tags technos */}
           <div style={{ display: "flex", gap: "12px" }}>
-            {["Git", "React", "Python", "Java", "PHP", "Docker", "SQL"].map(
+            {["React", "TypeScript", "Python", "PHP", "SQL"].map(
               (tech) => (
                 <div
                   key={tech}
@@ -147,7 +164,6 @@ export default async function Image() {
                     background: "rgba(121,144,255,0.10)",
                     border: "1px solid rgba(121,144,255,0.35)",
                     borderRadius: "6px",
-                    fontFamily: "monospace",
                     fontSize: "18px",
                     color: "#7990FF",
                   }}
@@ -159,29 +175,12 @@ export default async function Image() {
           </div>
         </div>
 
-        {/* Initiales JB en filigrane */}
-        <div
-          style={{
-            position: "absolute",
-            right: "80px",
-            bottom: "40px",
-            fontSize: "260px",
-            fontWeight: 800,
-            color: "rgba(121,144,255,0.08)",
-            lineHeight: 1,
-            letterSpacing: "-8px",
-          }}
-        >
-          JB
-        </div>
-
         {/* URL */}
         <div
           style={{
             position: "absolute",
             bottom: "48px",
             left: "100px",
-            fontFamily: "monospace",
             fontSize: "18px",
             color: "#555555",
             letterSpacing: "1px",
@@ -191,6 +190,9 @@ export default async function Image() {
         </div>
       </div>
     ),
-    { ...size }
+    { ...size, fonts: [
+        { name: "Rubik Mono One", data: await loadFontData(), weight: 400, style: "normal" }
+      ]
+    }
   );
 }
