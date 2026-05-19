@@ -5,6 +5,7 @@ import { SmoothScrollProvider } from "@/components/ui/SmoothScrollProvider";
 import { Navbar } from "@/components/layout/Navbar";
 import { Preloader } from "@/components/ui/Preloader";
 import { LocaleProvider } from "@/context/LocaleContext";
+import { Analytics } from "@vercel/analytics/next";
 
 const syne = Syne({
   variable: "--font-syne",
@@ -77,6 +78,7 @@ export default function RootLayout({
             {children}
           </SmoothScrollProvider>
         </LocaleProvider>
+        <Analytics />
       </body>
     </html>
   );
