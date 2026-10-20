@@ -86,7 +86,7 @@
     "lastName": "BROCHOT",
     "title": ["Computer Science Student", "Web Developer", "Intern in Luxembourg"],
     "bio": "Hey! I'm a computer science student passionate about new technologies and software development. I enjoy designing well-structured and creative projects, including software, games, and websites. Logical and curious, I love acquiring new skills and exploring innovative ideas.",
-    "availableLabel": "available · internship Feb–Jun 2026",
+    "availableLabel": "available",
     "stats": {
       "niveau": "level",
       "projets": "projects",

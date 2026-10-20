@@ -257,7 +257,7 @@ export function Navbar() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          gap: '1.7rem',
+          gap: '2rem',
           // Slide depuis le haut
           transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-100%)',
           opacity: isMobileMenuOpen ? 1 : 0,
@@ -274,8 +274,9 @@ export function Navbar() {
             onClick={(e) => handleNavClick(e, link.href)}
             style={{
               fontFamily: 'var(--font-display), sans-serif',
-              fontSize: '1.7rem',
+              fontSize: '2rem',
               fontWeight: 700,
+              letterSpacing: '-0.02em',
               textDecoration: 'none',
               opacity: isMobileMenuOpen ? 1 : 0,
               transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-16px)',
@@ -288,31 +289,7 @@ export function Navbar() {
           </a>
         ))}
 
-        <button
-          onClick={() => {
-            setIsMobileMenuOpen(false);
-            setContactOpen(true);
-          }}
-          style={{
-            fontFamily: 'var(--font-display), sans-serif',
-            fontSize: '1.7rem',
-            fontWeight: 700,
-            textDecoration: 'none',
-            color: 'var(--accent)',
-            marginTop: '1rem',
-            opacity: isMobileMenuOpen ? 1 : 0,
-            transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-16px)',
-            transition: isMobileMenuOpen
-              ? `opacity 0.4s ease ${NAV_LINKS.length * 60 + 200}ms, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${NAV_LINKS.length * 60 + 200}ms`
-              : 'opacity 0.2s ease, transform 0.2s ease',
-            background: 'none',
-            border: 'none',
-          }}
-        >
-          {t("nav.contact").toUpperCase()}
-        </button>
-
-                {/* Language Switcher Mobile */}
+        {/* Language Switcher Mobile */}
         <div
           style={{
             display: "flex",
@@ -355,6 +332,31 @@ export function Navbar() {
             </span>
           ))}
         </div>
+
+        <button
+          onClick={() => {
+            setIsMobileMenuOpen(false);
+            setContactOpen(true);
+          }}
+          style={{
+            fontFamily: 'var(--font-display), sans-serif',
+            fontSize: '2rem',
+            fontWeight: 700,
+            letterSpacing: '-0.02em',
+            textDecoration: 'none',
+            color: 'var(--accent)',
+            marginTop: '1rem',
+            opacity: isMobileMenuOpen ? 1 : 0,
+            transform: isMobileMenuOpen ? 'translateY(0)' : 'translateY(-16px)',
+            transition: isMobileMenuOpen
+              ? `opacity 0.4s ease ${NAV_LINKS.length * 60 + 200}ms, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) ${NAV_LINKS.length * 60 + 200}ms`
+              : 'opacity 0.2s ease, transform 0.2s ease',
+            background: 'none',
+            border: 'none',
+          }}
+        >
+          {t("nav.contact").toUpperCase()}
+        </button>
       </div>
 
       <ContactModal isOpen={contactOpen} onClose={() => setContactOpen(false)} />

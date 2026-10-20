@@ -23,7 +23,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 export const metadata: Metadata = {
   title: "Joshua Brochot — Portfolio",
   description:
-    "Étudiant BUT3 Informatique à l'IUT de Metz, disponible en stage de février à juin 2026. Spécialisé React, Next.js, TypeScript, Python et SQL.",
+    "Diplômé d'un BUT3 Informatique à l'IUT de Metz. Spécialisé React, Next.js, TypeScript, Python et SQL.",
   metadataBase: new URL("https://jbrochot.fr"),
   keywords: [
     "Joshua Brochot",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   authors: [{ name: "Joshua Brochot" }],
   openGraph: {
     title: "Joshua Brochot — Portfolio",
-    description: "Étudiant BUT3 Informatique · Disponible en stage fév–juin 2026",
+    description: "diplômé BUT3 Informatique · Disponible",
     url: "https://jbrochot.fr",
     siteName: "Portfolio Joshua Brochot",
     locale: "fr_FR",
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Joshua Brochot — Portfolio",
-    description: "Étudiant BUT3 Informatique · Disponible en stage fév–juin 2026",
+    description: "Diplômé d'un BUT Informatique · Disponible",
   },
   icons: {
     icon: [

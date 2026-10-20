@@ -84,9 +84,9 @@
   "profile": {
     "firstName": "Joshua",
     "lastName": "BROCHOT",
-    "title": ["Étudiant BUT Informatique", "Développeur Web", "En stage au Luxembourg"],
-    "bio": "Salut ! Je suis étudiant en informatique, passionné par les nouvelles technologies et le développement logiciel. J'aime concevoir des projets bien structurés et créatifs, notamment des logiciels, des jeux et des sites web. Logique et curieux, j'adore acquérir de nouvelles compétences et explorer des idées novatrices.",
-    "availableLabel": "disponible · stage fév–juin 2026",
+    "title": ["Diplômé d'un BUT Informatique", "Développeur Web"],
+    "bio": "Salut ! Je suis diplômé d'un BUT Informatique, passionné par les nouvelles technologies et le développement logiciel. J'aime concevoir des projets bien structurés et créatifs, notamment des logiciels, des jeux et des sites web. Logique et curieux, j'adore acquérir de nouvelles compétences et explorer des idées novatrices.",
+    "availableLabel": "disponible",
     "stats": {
       "niveau": "niveau",
       "projets": "projets",

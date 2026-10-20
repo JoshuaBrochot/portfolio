@@ -1,13 +1,13 @@
 export const PROFILE = {
   firstName: "Joshua",
   lastName: "BROCHOT",
-  title: ["Étudiant BUT Informatique", "Développeur Web", "En stage au Luxembourg"],
-  bio: "Salut ! Je suis étudiant en informatique, passionné par les nouvelles technologies et le développement logiciel. J'aime concevoir des projets bien structurés et créatifs, notamment des logiciels, des jeux et des sites web. Logique et curieux, j'adore acquérir de nouvelles compétences et explorer des idées novatrices.",
+  title: ["Diplômé d'un BUT Informatique", "Développeur Web", "En stage au Luxembourg"],
+  bio: "Salut ! Je suis diplômé d'un BUT Informatique, passionné par les nouvelles technologies et le développement logiciel. J'aime concevoir des projets bien structurés et créatifs, notamment des logiciels, des jeux et des sites web. Logique et curieux, j'adore acquérir de nouvelles compétences et explorer des idées novatrices.",
   email: "contact@jbrochot.fr",
   phone: "+33 07 68 84 93 38",
   birthdate: "2 septembre 2005",
   available: true,
-  availableLabel: "disponible · stage fév–juin 2026",
+  availableLabel: "disponible",
   initials: "JB",
   avatarSrc: '/photo.jpg',
   socials: [
@@ -53,7 +53,7 @@ export const EDUCATION = [
     school: "IUT de Metz — Université de Lorraine",
     degree: "BUT 3 Informatique",
     detail: "Parcours développement logiciel",
-    current: true,
+    current: false,
   },
 
 ];
@@ -77,7 +77,7 @@ export const EXPERIENCES = [
     company: "Paul Wurth",
     location: "Luxembourg",
     role: "Stage IT — Développement logiciel",
-    current: true,
+    current: false,
     missions: [
       "Refonte complète d'un logiciel de gestion de contrats et d'administration",
       "Conception et développement de l'interface utilisateur",
